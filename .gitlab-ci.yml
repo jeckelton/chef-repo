@@ -1,0 +1,13 @@
+---
+stages:
+  - deploy
+
+deploy_to_nagios:
+  stage: deploy
+  script:
+    - echo "Running Chef client on NagiosNode"
+    - knife node run_list add NagiosNode "recipe[workstation::setup]"
+    - knife ssh 'name:NagiosNode' 'sudo chef-client' --ssh-user nagios --ssh-password "$nagios_sudo"
+  only:
+    - master
+  when: on_success
