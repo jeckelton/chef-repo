@@ -3,5 +3,5 @@ package 'tree' do
 end
 
 file '/etc/motd' do
-  content 'Property of Jeremy Home Lab - Test pipeline'
+  content 'Property of Jeremy Home Lab - Test pipeline2'
 end
