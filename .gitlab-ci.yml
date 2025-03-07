@@ -8,6 +8,9 @@ deploy_to_nagios:
     - echo "Running Chef client on NagiosNode "
     - knife node run_list add NagiosNode "recipe[workstation::setup]"
     - knife ssh 'name:NagiosNode' 'sudo chef-client' --ssh-user nagios --ssh-password "$nagios_sudo"
+  tags:
+    - chef-runner
   only:
     - main
   when: on_success
+
