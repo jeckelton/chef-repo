@@ -6,7 +6,7 @@ deploy_to_nagios:
   stage: deploy
   before_script:
     - export CHEF_HOME="/home/jeremy/.chef"
-    - export CHEF_CONFIG="$CHEF_HOME/chef.rb"
+    - export CHEF_CONFIG="$CHEF_HOME/config.rb"
     - export CHEF_CLIENT_KEY="$CHEF_HOME/jeckelton.pem"
     - export PATH="/opt/chef-workstation/bin:$PATH"
   script:
