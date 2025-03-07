@@ -11,7 +11,7 @@ deploy_to_nagios:
     - export PATH="/opt/chef-workstation/bin:$PATH"
   script:
     - echo "Running Chef client on NagiosNode"
-    - knife upload cookbook workstationd
+    - knife upload cookbook workstation -c "$CHEF_CONFIG"
     - knife ssh 'name:NagiosNode' 'sudo chef-client' --ssh-user nagios --ssh-password "$nagios_sudo" -c "$CHEF_CONFIG"
   tags:
     - chef-runner
