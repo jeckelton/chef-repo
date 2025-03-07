@@ -4,10 +4,18 @@ stages:
 
 deploy_to_nagios:
   stage: deploy
+  before_script:
+    - export CHEF_HOME="/home/jeremy/.chef"
+    - export CHEF_CONFIG="$CHEF_HOME/config.rb"
+    - export CHEF_CLIENT_KEY="$CHEF_HOME/jeckelton.pem"
+    - export PATH="/opt/chef-workstation/bin:$PATH"
+    - mkdir -p "$CHEF_HOME"
+    - echo "$CHEF_CLIENT_KEY_CONTENT" > "$CHEF_CLIENT_KEY"
+    - knife ssl fetch
   script:
     - echo "Running Chef client on NagiosNode "
-    - knife node run_list add NagiosNode "recipe[workstation::setup]"
-    - knife ssh 'name:NagiosNode' 'sudo chef-client' --ssh-user nagios --ssh-password "$nagios_sudo"
+    - knife node run_list add NagiosNode "recipe[workstation::setup]" -c "$CHEF_CONFIG"
+    - knife ssh 'name:NagiosNode' 'sudo chef-client' --ssh-user nagios --ssh-password "$nagios_sudo" -c "$CHEF_CONFIG"
   tags:
     - chef-runner
   only:
