@@ -17,4 +17,4 @@ The config file, `.chef/config.rb` is a repository-specific configuration file f
 
 ## Next Steps
 
-Read the README file in each of the subdirectories for more information about what goes in those directories.
+Read the (test) README file in each of the subdirectories for more information about what goes in those directories.
