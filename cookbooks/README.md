@@ -63,4 +63,4 @@ If you're not using Git, use the site download subcommand to download the tarbal
 knife cookbook site download COOKBOOK
 ```
 
-This creates the COOKBOOK.tar.gz from in the current directory (e.g., `~/chef-repo`). We recommend following a workflow similar to the above for your version control tool.
+This creates (first commit) the COOKBOOK.tar.gz from in the current directory (e.g., `~/chef-repo`). We recommend following a workflow similar to the above for your version control tool.
