@@ -1,9 +1,0 @@
-*/.chef
-*/*file
-*/*file.lock
-*/bin
-*/bundle
-*/chefignore
-*/spec
-*/test
-*/vendor
