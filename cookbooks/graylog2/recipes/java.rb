@@ -1,3 +1,3 @@
-package 'openjdk-8-jdk' do
+package 'openjdk-17-jdk' do
   action :install
 end
