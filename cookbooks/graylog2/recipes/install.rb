@@ -13,8 +13,8 @@ dpkg_package 'graylog-repository' do
 end
 
 execute 'apt_update' do
-  command 'apt update'
-  action :run
+  command 'apt-get update'
+  only_if { ::File.mtime('/var/lib/apt/lists') < Time.now - 86_400 }
 end
 
 package 'graylog-server' do

@@ -12,7 +12,7 @@ end
 
 execute 'apt_update' do
   command 'apt-get update'
-  action :run
+  only_if { ::File.mtime('/var/lib/apt/lists') < Time.now - 86_400 }
 end
 
 package 'mongodb-org' do
