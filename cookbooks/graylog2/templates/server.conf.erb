@@ -3,6 +3,7 @@ root_password_sha2 = <%= @root_password_sha2 %>
 mongodb_uri = mongodb://<%= @mongodb_host %>/graylog
 gelasticsearch_hosts = http://<%= @elasticsearch_host %>:9200
 elasticsearch_cluster_name = <%= @elasticsearch_cluster_name %>
+http_bind_address = <%= @http_bind_address %>:9000
 http_publish_uri = <%= @http_publish_uri %>
 output_batch_size = <%= @output_batch_size %>
 output_flush_interval = <%= @output_flush_interval %>
