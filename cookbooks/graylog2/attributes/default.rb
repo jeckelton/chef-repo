@@ -3,6 +3,7 @@ default['graylog2']['repo_deb_path'] = '/tmp/graylog-5.2-repository_latest.deb'
 
 default['graylog2']['server']['http_bind_address'] = '0.0.0.0'
 default['graylog2']['server']['http_publish_uri'] = 'http://graylog.fritz.box:9000'
+default['graylog2']['server']['http_external_uri'] = 'https://graylog.fritz.box'
 default['graylog2']['server']['output_batch_size'] = '500'
 default['graylog2']['server']['output_flush_interval'] = '1'
 default['graylog2']['server']['output_fault_count_threshold'] = '5'
