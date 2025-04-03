@@ -3,3 +3,15 @@ root_password_sha2 = <%= @root_password_sha2 %>
 mongodb_uri = mongodb://<%= @mongodb_host %>/graylog
 gelasticsearch_hosts = http://<%= @elasticsearch_host %>:9200
 elasticsearch_cluster_name = <%= @elasticsearch_cluster_name %>
+http_publish_uri = <%= @http_publish_uri %>
+output_batch_size = <%= @output_batch_size %>
+output_flush_interval = <%= @output_flush_interval %>
+output_fault_count_threshold = <%= @output_fault_count_threshold %>
+output_fault_penalty_second = <%= @output_fault_penalty_second %>
+processor_wait_strategy = <%= @processor_wait_strategy %>
+ring_size = <%= @ring_size %>
+inputbuffer_ring_size = <%= @inputbuffer_ring_size %>
+inputbuffer_processors = <%= @inputbuffer_processors %>
+inputbuffer_wait_strategy = <%= @inputbuffer_wait_strategy %>
+message_journal_enabled = <%= @message_journal_enabled %>
+message_journal_dir = <%= @message_journal_dir %>
