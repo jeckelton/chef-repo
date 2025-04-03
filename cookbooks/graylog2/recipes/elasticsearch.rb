@@ -15,7 +15,7 @@ execute 'apt_update' do
   action :run
 end
 
-package 'elasticsearch' do
+package 'elasticsearch-oss' do
   action :install
 end
   
