@@ -1,8 +1,22 @@
 default['graylog2']['repo_url'] = 'https://packages.graylog2.org/repo/packages/graylog-5.2-repository_latest.deb'
 default['graylog2']['repo_deb_path'] = '/tmp/graylog-5.2-repository_latest.deb'
 
-default['graylog2']['server']['http_bind_address'] = '0.0.0.0'
+default['graylog2']['server']['http_bind_address'] = '0.0.0.0:9000'
+default['graylog2']['server']['http_publish_uri'] = 'http:/graylog.fritz.box:9000'
+default['graylog2']['server']['output_batch_size'] = '500'
+default['graylog2']['server']['output_flush_interval'] = '1'
+default['graylog2']['server']['output_fault_count_threshold'] = '5'
+default['graylog2']['server']['output_fault_penalty_second'] = '30'
+default['graylog2']['server']['processor_wait_strategy'] = 'blocking'
+default['graylog2']['server']['ring_size'] = '65536'
+default['graylog2']['server']['inputbuffer_ring_size'] = '65536'
+default['graylog2']['server']['inputbuffer_processors'] = '2'
+default['graylog2']['server']['inputbuffer_wait_strategy'] = 'blocking'
+default['graylog2']['server']['message_journal_enabled'] = 'true'
+default['graylog2']['server']['message_journal_dir'] = '/var/lib/graylog-server/journal'
 
 default['graylog2']['mongodb']['host'] = 'graylog.fritz.box'
+default['graylog2']['mongodb']['mongodb_max_connections'] = '1000'
+
 default['graylog2']['elasticsearch']['host'] = 'graylog.fritz.box'
 default['graylog2']['elasticsearch']['cluster_name'] = 'graylog'

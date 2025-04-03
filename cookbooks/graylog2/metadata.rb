@@ -3,7 +3,7 @@ maintainer 'The Authors'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
 description 'Installs/Configures graylog2'
-version '0.2.0'
+version '0.2.1'
 chef_version '>= 16.0'
 
 supports 'debian'
