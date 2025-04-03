@@ -14,7 +14,7 @@ template '/etc/graylog/server/server.conf' do
     root_password_sha2: node['graylog2']['server']['root_password_sha2'],
     mongodb_host: node['graylog2']['mongodb']['host'],
     elasticsearch_host: node['graylog2']['elasticsearch']['host'],
-    elasticsearch_cluster_name: node['graylog2']['elasticsearch']['cluster_name']
+    elasticsearch_cluster_name: node['graylog2']['elasticsearch']['cluster_name'],
     http_bind_address: node['graylog2']['server']['http_bind_address']
   )
   notifies :restart, 'service[graylog-server]'
