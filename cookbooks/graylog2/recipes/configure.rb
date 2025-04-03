@@ -1,3 +1,5 @@
+secrets = data_bag_item('graylog2', 'secrets')
+
 template '/etc/graylog/server/server.conf' do
   source 'server.conf.erb'
   owner 'graylog'
