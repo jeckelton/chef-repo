@@ -16,7 +16,7 @@ template '/etc/graylog/server/server.conf' do
     elasticsearch_host: node['graylog2']['elasticsearch']['host'],
     elasticsearch_cluster_name: node['graylog2']['elasticsearch']['cluster_name'],
     http_bind_address: node['graylog2']['server']['http_bind_address'],
-    http_publish_uri: node['graylog2']['server']['http_publish_uri']
+    http_publish_uri: node['graylog2']['server']['http_publish_uri'],
     output_batch_size: node['graylog2']['server']['output_batch_size'],
     output_flush_interval: node['graylog2']['server']['output_flush_interval'],
     output_fault_count_threshold: node['graylog2']['server']['output_fault_count_threshold'],
