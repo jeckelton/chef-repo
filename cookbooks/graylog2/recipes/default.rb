@@ -4,12 +4,13 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 #
-include_recipe '::firewalld'
-include_recipe '::java'
-include_recipe '::mongodb'
-include_recipe '::datampde_install'
-include_recipe '::datanode_configure'
-include_recipe '::server_install'
-include_recipe '::server_configure'
-include_recipe '::service'
+include_recipe 'graylog2::firewalld'
+include_recipe 'graylog2::java'
+include_recipe 'graylog2::mongodb'
+include_recipe 'graylog2::datampde_install'
+include_recipe 'graylog2::datanode_configure'
+include_recipe 'graylog2::server_install'
+include_recipe 'graylog2::server_configure'
+include_recipe 'graylog2::services'
+include_recipe 'graylog2::authbind'
 
