@@ -7,7 +7,7 @@
 include_recipe 'graylog2::firewalld'
 include_recipe 'graylog2::java'
 include_recipe 'graylog2::mongodb'
-include_recipe 'graylog2::datampde_install'
+include_recipe 'graylog2::datanode_install'
 include_recipe 'graylog2::datanode_configure'
 include_recipe 'graylog2::server_install'
 include_recipe 'graylog2::server_configure'
