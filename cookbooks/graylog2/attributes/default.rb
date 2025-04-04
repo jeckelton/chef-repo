@@ -2,8 +2,7 @@ default['graylog2']['repo_url'] = 'https://packages.graylog2.org/repo/packages/g
 default['graylog2']['repo_deb_path'] = '/tmp/graylog-5.2-repository_latest.deb'
 
 default['graylog2']['server']['http_bind_address'] = '0.0.0.0'
-default['graylog2']['server']['http_publish_uri'] = 'http://graylog.fritz.box:9000'
-default['graylog2']['server']['http_external_uri'] = 'https://graylog.fritz.box'
+
 default['graylog2']['server']['output_batch_size'] = '500'
 default['graylog2']['server']['output_flush_interval'] = '1'
 default['graylog2']['server']['output_fault_count_threshold'] = '5'
@@ -16,8 +15,11 @@ default['graylog2']['server']['inputbuffer_wait_strategy'] = 'blocking'
 default['graylog2']['server']['message_journal_enabled'] = 'true'
 default['graylog2']['server']['message_journal_dir'] = '/var/lib/graylog-server/journal'
 
+default['graylog2']['datanode']['opensearch_location'] = '/usr/share/graylog-datanode/dist'
+default['graylog2']['datanode']['opensearch_config_location'] = '/var/lib/graylog-datanode/opensearch/config'
+default['graylog2']['datanode']['opensearch_data_location'] = '/var/lib/graylog-datanode/opensearch/data'
+default['graylog2']['datanode']['opensearch_logs_location'] = '/var/log/graylog-datanode/opensearch'
+
 default['graylog2']['mongodb']['host'] = 'graylog.fritz.box'
 default['graylog2']['mongodb']['mongodb_max_connections'] = '1000'
 
-default['graylog2']['elasticsearch']['host'] = 'graylog.fritz.box'
-default['graylog2']['elasticsearch']['cluster_name'] = 'graylog'
