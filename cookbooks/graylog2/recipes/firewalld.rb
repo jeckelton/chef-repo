@@ -6,7 +6,7 @@ package 'firewalld' do
   action [:enable, :start]
 end
   
-allowed_ports = [9200, 9000, 443, 22, 80, 514]
+allowed_ports = [9200, 9000, 9300, 443, 22, 80, 5514, 8999]
   
 allowed_ports.each do |port|
   execute "open port #{port}" do

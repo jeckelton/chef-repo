@@ -10,6 +10,8 @@ template '/etc/graylog/server/server.conf' do
   group 'graylog'
   mode '0644'
   variables(
+    is_leader: node['graylog2']['server']['is_leader'],
+    node_id_file: node['graylog2']['server']['node_id_file'],
     password_secret: node['graylog2']['server']['password_secret'],
     root_password_sha2: node['graylog2']['server']['root_password_sha2'],
     mongodb_host: node['graylog2']['mongodb']['host'],

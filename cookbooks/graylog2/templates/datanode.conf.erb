@@ -44,10 +44,10 @@
 
 # The auto-generated node ID will be stored in this file and read after restarts. It is a good idea
 # to use an absolute file path here if you are starting Graylog DataNode from init scripts or similar.
-node_id_file = /etc/graylog/datanode/node-id
+node_id_file = <%= @node_id_file %>
 
 # location of your data-node configuration files - put additional files like manually created certificates etc. here
-config_location = /etc/graylog/datanode
+config_location = <%= @config_location %>
 
 # You MUST set a secret to secure/pepper the stored user passwords here. Use at least 64 characters.
 # Generate one by using for example: pwgen -N 1 -s 96
@@ -98,7 +98,7 @@ mongodb_uri = mongodb://<%= @mongodb_host %>/graylog
 #
 # The port where OpenSearch HTTP is listening on
 #
-# opensearch_http_port = 9200
+opensearch_http_port = <%= @opensearch_http_port %>
 
 #### OpenSearch transport port
 #
