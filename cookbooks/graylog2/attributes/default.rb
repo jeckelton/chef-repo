@@ -1,7 +1,11 @@
 default['graylog2']['repo_url'] = 'https://packages.graylog2.org/repo/packages/graylog-5.2-repository_latest.deb'
 default['graylog2']['repo_deb_path'] = '/tmp/graylog-5.2-repository_latest.deb'
 
-defailt['graylog2']['server']['is_leader'] = 'true'
+default['graylog2']['server']['is_leader'] = 'true'
+default['graylog2']['server']['bin_dir'] = '/usr/share/graylog-server/bin'
+default['graylog2']['server']['root_timezone'] = 'Europe/Amsterdam'
+default['graylog2']['server']['data_dir'] = '/var/lib/graylog-server'
+default['graylog2']['server']['plugin_dir'] = '/usr/share/graylog-server/plugin'
 default['graylog2']['server']['node_id_file'] = '/etc/graylog/server/node-id'
 default['graylog2']['server']['http_bind_address'] = '0.0.0.0'
 default['graylog2']['server']['output_batch_size'] = '500'
