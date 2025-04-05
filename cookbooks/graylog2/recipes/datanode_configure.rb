@@ -14,6 +14,7 @@ template '/etc/graylog/datanode/datanode.conf' do
     mongodb_host: node['graylog2']['mongodb']['host'],
     node_id_file: node['graylog2']['datanode']['node_id_file'],
     config_location: node['graylog2']['datanode']['config_location'],
+    datanode_http_port: node['graylog2']['datanode']['datanode_http_port'],
     opensearch_http_port: node['graylog2']['datanode']['opensearch_http_port'],
     opensearch_transport_port: node['graylog2']['datanode']['opensearch_transport_port'],
     opensearch_location: node['graylog2']['datanode']['opensearch_location'],
