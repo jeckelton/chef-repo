@@ -12,5 +12,4 @@ include_recipe 'graylog2::datanode_configure'
 include_recipe 'graylog2::server_install'
 include_recipe 'graylog2::server_configure'
 include_recipe 'graylog2::services'
-include_recipe 'graylog2::authbind'
 
