@@ -1,5 +1,8 @@
-default['graylog2']['repo_url'] = 'https://packages.graylog2.org/repo/packages/graylog-5.2-repository_latest.deb'
+default['graylog2']['repo_deb_url'] = 'https://packages.graylog2.org/repo/packages/graylog-5.2-repository_latest.deb'
 default['graylog2']['repo_deb_path'] = '/tmp/graylog-5.2-repository_latest.deb'
+
+default['graylog2']['repo_rpm_url'] = 'https://packages.graylog2.org/repo/el/stable/5.2/x86_64/graylog-5.2-repository-1-2.noarch.rpm'
+default['graylog2']['repo_rpm_path'] = '/tmp/graylog-5.2-repository-1-2.noarch.rpm'
 
 default['graylog2']['server']['is_leader'] = 'true'
 default['graylog2']['server']['bin_dir'] = '/usr/share/graylog-server/bin'
