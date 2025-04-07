@@ -85,7 +85,7 @@ mongodb_uri = mongodb://<%= @mongodb_host %>/graylog
 #
 # The port where the DataNode REST api is listening
 #
-# datanode_http_port = 8999
+datanode_http_port = <%= @datanode_http_port %>
 
 #### HTTP publish URI
 #
@@ -104,7 +104,7 @@ opensearch_http_port = <%= @opensearch_http_port %>
 #
 # The port where OpenSearch transports is listening on
 #
-# opensearch_transport_port = 9300
+opensearch_transport_port = <%= @opensearch_transport_port %>
 
 #### OpenSearch node name config option
 #
