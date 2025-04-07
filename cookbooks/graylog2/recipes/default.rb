@@ -4,6 +4,7 @@
 #
 # Copyright:: 2025, The Authors, All Rights Reserved.
 #
+include_recipe 'graylog2::user'
 include_recipe 'graylog2::firewalld'
 include_recipe 'graylog2::java'
 include_recipe 'graylog2::mongodb'
