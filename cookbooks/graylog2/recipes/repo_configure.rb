@@ -30,7 +30,7 @@ when 'rhel'
     not_if { ::File.exist?(repo_rpm_path) }
   end
 
-  rpm_package 'graylog-repository' do
+  dnf_package 'graylog-repository' do
     source repo_rpm_path
     action :install
     notifies :run, 'execute[dnf_makecache]', :immediately
