@@ -33,6 +33,7 @@ when 'rhel'
   rpm_package 'graylog-repository' do
     source repo_rpm_path
     action :install
+    notifies :run, 'execute[dnf_makecache]', :immediately
   end
 
   execute 'dnf_makecache' do
