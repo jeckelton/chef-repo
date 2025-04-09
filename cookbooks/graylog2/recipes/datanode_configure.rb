@@ -25,6 +25,19 @@ template '/etc/graylog/datanode/datanode.conf' do
   notifies :restart, 'service[graylog-datanode]'
 end
 
+file '/etc/sysctl.d/99-graylog.conf' do
+  content "vm.max_map_count = 262144\n"
+  owner 'root'
+  group 'root'
+  mode '0644'
+  notifies :run, 'execute[reload-sysctl]', :immediately
+end
+
+execute 'reload-sysctl' do
+  command 'sysctl --system'
+  action :nothing
+end
+
 log 'Check opensearch_location' do
   message "Opensearch location: #{node['graylog2']['datanode']['opensearch_location']}"
   level :info

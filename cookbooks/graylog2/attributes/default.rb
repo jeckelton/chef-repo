@@ -33,6 +33,6 @@ default['graylog2']['datanode']['opensearch_config_location'] = '/var/lib/graylo
 default['graylog2']['datanode']['opensearch_data_location'] = '/var/lib/graylog-datanode/opensearch/data'
 default['graylog2']['datanode']['opensearch_logs_location'] = '/var/log/graylog-datanode/opensearch'
 
-default['graylog2']['mongodb']['host'] = 'graylog.fritz.box'
+default['graylog2']['mongodb']['host'] = '127.0.0.1'
 default['graylog2']['mongodb']['mongodb_max_connections'] = '1000'
 
