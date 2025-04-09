@@ -9,4 +9,5 @@ group 'graylog' do
     system true
     shell '/sbin/nologin'
     home '/var/lib/graylog'
+    not_if "pgrep -u graylog"
   end
