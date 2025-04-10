@@ -11,8 +11,9 @@ execute 'dnf_makecache' do
 end
 
 execute 'wait_for_repo' do
-  command 'sleep 10'
+  command 'sleep 15'
   action :run
+  notifies :run, 'execute[dnf_makecache]', :immediately
 end
 
 package %w(docker-ce docker-ce-cli containerd.io) do
@@ -21,6 +22,10 @@ end
 
 service 'docker' do
   action [:enable, :start]
+end
+
+group 'docker' do
+  action :create
 end
 
 execute 'enable_docker_user_namespace' do
@@ -47,6 +52,7 @@ execute 'run_unifi_container' do
       -e PUID="#{node['unifi']['puid']}" \
       -e PGID="#{node['unifi']['pgid']}" \
       -e TZ="#{node['unifi']['timezone']}" \
+      -e unifi.controller.bind_ip=0.0.0.0 \
       -p 3478:3478/udp \
       -p 10001:10001/udp \
       -p 8080:8080 \
@@ -55,7 +61,6 @@ execute 'run_unifi_container' do
       -p 8843:8843 \
       -p 8880:8880 \
       -p 6789:6789 \
-      -v /opt/unifi/config:/config:Z \
       --restart unless-stopped \
       linuxserver/unifi:latest
   EOH
