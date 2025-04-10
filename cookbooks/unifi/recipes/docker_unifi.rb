@@ -32,25 +32,26 @@ execute 'enable_docker_user_namespace' do
   not_if 'getent group docker | grep root'
 end
 
-directory '/opt/unifi/config' do
-  recursive true
-  owner 'root'
-  group 'root'
-  mode '0755'
+execute 'pull_unifi_image' do
+  command 'docker pull linuxserver/unifi:latest'
+  not_if "docker image inspect linuxserver/unifi:latest"
 end
 
-docker_container 'unifi-controller' do
-  repo 'linuxserver/unifi'
-  tag 'latest'
-  port '3478:3478/udp'
-  port '10001:10001/udp'
-  port '8080:8080'
-  port '8443:8443'
-  port '1900:1900/udp'
-  port '8843:8843'
-  port '8880:8880'
-  port '6789:6789'
-  env 'unifi.controller.bind_ip=0.0.0.0'
-  restart_policy 'unless-stopped'
-  action :run
+execute 'run_unifi_container' do
+  command <<-EOH
+    docker run -d \
+      -e unifi.controller.bind_ip=0.0.0.0 \
+      -p 3478:3478/udp \
+      -p 10001:10001/udp \
+      -p 8080:8080 \
+      -p 8443:8443 \
+      -p 1900:1900/udp \
+      -p 8843:8843 \
+      -p 8880:8880 \
+      -p 6789:6789 \
+      --name=unifi-controller \
+      --restart unless-stopped \
+      linuxserver/unifi:latest
+  EOH
+  not_if "docker ps -a --format '{{.Names}}' | grep -w unifi-controller"
 end
