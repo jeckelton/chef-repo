@@ -1,4 +1,13 @@
-package %w(docker git)
+package %w(yum-utils device-mapper-persistent-data lvm2)
+
+execute 'add_docker_repo' do
+  command 'dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
+  not_if 'test -f /etc/yum.repos.d/docker-ce.repo'
+end
+
+package %w(docker-ce docker-ce-cli containerd.io) do
+  action :install
+end
 
 service 'docker' do
   action [:enable, :start]
