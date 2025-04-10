@@ -1,3 +1,7 @@
+execute 'Setting Ulimit' do
+  command 'ulimit -n 65535'
+end
+
 file '/etc/security/limits.conf' do
   content <<-EOF
 * soft nofile 65535
@@ -9,10 +13,6 @@ root hard nofile 65535
   owner 'root'
   group 'root'
   action :create
-end
-
-execute 'Setting Ulimit' do
-  command 'ulimit -n 65535'
 end
 
 execute 'reload_systemd' do

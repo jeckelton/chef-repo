@@ -47,10 +47,6 @@ end
 execute 'run_unifi_container' do
   command <<-EOH
     docker run -d \
-      --name=unifi-controller \
-      -e PUID="#{node['unifi']['puid']}" \
-      -e PGID="#{node['unifi']['pgid']}" \
-      -e TZ="#{node['unifi']['timezone']}" \
       -e unifi.controller.bind_ip=0.0.0.0 \
       -p 3478:3478/udp \
       -p 10001:10001/udp \
@@ -60,6 +56,7 @@ execute 'run_unifi_container' do
       -p 8843:8843 \
       -p 8880:8880 \
       -p 6789:6789 \
+      --name=unifi-controller \
       --restart unless-stopped \
       linuxserver/unifi:latest
   EOH
