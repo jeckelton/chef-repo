@@ -11,11 +11,22 @@ end
 execute 'wait_for_repo' do
   command 'sleep 15'
   action :run
-  notifies :run, 'execute[dnf_makecache]', :immediately
+end
+
+execute 'wait_until_docker_package_available' do
+  command <<-EOH
+    for i in {1..5}; do
+      dnf list docker-ce && exit 0
+      sleep 5
+    done
+    exit 1
+  EOH
 end
 
 package %w(yum-utils device-mapper-persistent-data lvm2 docker-ce docker-ce-cli containerd.io) do
   action :install
+  retries 3
+  retry_delay 5
 end
 
 service 'docker' do

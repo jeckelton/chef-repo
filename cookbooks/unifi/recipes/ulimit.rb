@@ -11,6 +11,10 @@ root hard nofile 65535
   action :create
 end
 
+execute 'Setting Ulimit' do
+  command 'ulimit -n 65535'
+end
+
 execute 'reload_systemd' do
   command 'systemctl daemon-reload'
   action :run
