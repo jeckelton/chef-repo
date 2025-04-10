@@ -10,6 +10,11 @@ execute 'dnf_makecache' do
   action :run
 end
 
+execute 'wait_for_repo' do
+  command 'sleep 10'
+  action :run
+end
+
 package %w(docker-ce docker-ce-cli containerd.io) do
   action :install
 end
