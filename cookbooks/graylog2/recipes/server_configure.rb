@@ -10,13 +10,16 @@ template '/etc/graylog/server/server.conf' do
   group 'graylog'
   mode '0644'
   variables(
+    is_leader: node['graylog2']['server']['is_leader'],
+    node_id_file: node['graylog2']['server']['node_id_file'],
+    bin_dir: node['graylog2']['server']['bin_dir'],
+    root_timezone: node['graylog2']['server']['root_timezone'],
+    data_dir: node['graylog2']['server']['data_dir'],
+    plugin_dir: node['graylog2']['server']['plugin_dir'],
     password_secret: node['graylog2']['server']['password_secret'],
     root_password_sha2: node['graylog2']['server']['root_password_sha2'],
     mongodb_host: node['graylog2']['mongodb']['host'],
-    elasticsearch_host: node['graylog2']['elasticsearch']['host'],
-    elasticsearch_cluster_name: node['graylog2']['elasticsearch']['cluster_name'],
     http_bind_address: node['graylog2']['server']['http_bind_address'],
-    http_publish_uri: node['graylog2']['server']['http_publish_uri'],
     output_batch_size: node['graylog2']['server']['output_batch_size'],
     output_flush_interval: node['graylog2']['server']['output_flush_interval'],
     output_fault_count_threshold: node['graylog2']['server']['output_fault_count_threshold'],
