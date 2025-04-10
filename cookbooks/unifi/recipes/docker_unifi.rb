@@ -1,7 +1,7 @@
 package %w(yum-utils device-mapper-persistent-data lvm2)
 
 execute 'add_docker_repo' do
-  command 'dnf config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo'
+  command 'dnf config-manager --add-repo https://download.docker.com/linux/rhel/docker-ce.repo'
   not_if 'test -f /etc/yum.repos.d/docker-ce.repo'
 end
 

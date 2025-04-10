@@ -3,7 +3,7 @@ maintainer 'Jeremy Eckelton'
 maintainer_email 'jeremy.eckelton@gmail.com'
 license 'MIT'
 description 'Installs/Configures unifi'
-version '0.1.3'
+version '0.1.4'
 chef_version '>= 16.0'
 
 # The `issues_url` points to the location where issues for this cookbook are
@@ -18,6 +18,5 @@ chef_version '>= 16.0'
 #
 # source_url 'https://github.com/<insert_org_here>/unifi'
 
-supports 'debian'
 supports 'redhat'
 supports 'rocky'
