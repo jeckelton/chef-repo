@@ -13,19 +13,9 @@ execute 'wait_for_repo' do
   action :run
 end
 
-execute 'wait_until_docker_package_available' do
-  command <<-EOH
-    for i in {1..5}; do
-      dnf list docker-ce && exit 0
-      sleep 5
-    done
-    exit 1
-  EOH
-end
-
 package %w(yum-utils device-mapper-persistent-data lvm2 docker-ce docker-ce-cli containerd.io) do
   action :install
-  retries 3
+  retries 10
   retry_delay 5
 end
 
