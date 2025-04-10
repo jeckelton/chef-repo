@@ -5,6 +5,11 @@ execute 'add_docker_repo' do
   not_if 'test -f /etc/yum.repos.d/docker-ce.repo'
 end
 
+execute 'dnf_makecache' do
+  command 'dnf makecache'
+  action :run
+end
+
 package %w(docker-ce docker-ce-cli containerd.io) do
   action :install
 end
