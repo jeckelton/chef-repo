@@ -27,6 +27,11 @@ group 'docker' do
   action :create
 end
 
+execute 'enable_docker_user_namespace' do
+  command 'usermod -aG docker unifi'
+  not_if 'getent group docker | grep unifi'
+end
+
 directory '/opt/unifi/config' do
   owner 'unifi'
   group 'unifi'
@@ -54,6 +59,7 @@ execute 'run_unifi_container' do
       -p 8843:8843 \
       -p 8880:8880 \
       -p 6789:6789 \
+      --priviledged \
       --name unifi-controller \
       --restart unless-stopped \
       linuxserver/unifi:latest
