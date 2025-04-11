@@ -6,7 +6,7 @@ end
 execute 'dnf_makecache' do
   command 'dnf makecache'
   action :run
-end
+en
 
 execute 'wait_for_repo' do
   command 'sleep 15'
@@ -53,8 +53,8 @@ services:
     container_name: unifi-controller
     restart: unless-stopped
     environment:
-      - PUID=#{etc_user_id('unifi')}
-      - PGID=#{etc_group_id('unifi')}
+      - PUID=#{node['unifi']['puid']}
+      - PGID=#{node['unifi']['pgid']}
       - TZ=#{node['unifi']['timezone']}
     volumes:
       - /opt/unifi/config:/config:z
