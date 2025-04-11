@@ -49,7 +49,7 @@ file '/opt/unifi/docker-compose.yml' do
 version: '3.7'
 services:
   unifi-controller:
-    image: linuxserver/unifi:latest
+    image: jacobalberty/unifi:latest
     container_name: unifi-controller
     restart: unless-stopped
     environment:
