@@ -39,30 +39,42 @@ directory '/opt/unifi/config' do
   recursive true
 end
 
-execute 'pull_unifi_image' do
-  command 'docker pull linuxserver/unifi:latest'
-  not_if "docker image inspect linuxserver/unifi:latest"
+execute 'install_docker_compose' do
+  command 'curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose'
+  not_if 'which docker-compose'
+end
+
+file '/opt/unifi/docker-compose.yml' do
+  content <<-EOH
+version: '3.7'
+services:
+  unifi-controller:
+    image: linuxserver/unifi:latest
+    container_name: unifi-controller
+    restart: unless-stopped
+    environment:
+      - PUID=#{etc_user_id('unifi')}
+      - PGID=#{etc_group_id('unifi')}
+      - TZ=#{node['unifi']['timezone']}
+    volumes:
+      - /opt/unifi/config:/config:z
+    ports:
+      - "3478:3478/udp"
+      - "10001:10001/udp"
+      - "8080:8080"
+      - "8443:8443"
+      - "1900:1900/udp"
+      - "8843:8843"
+      - "8880:8880"
+      - "6789:6789"
+    privileged: true
+  EOH
+  owner 'unifi'
+  group 'unifi'
+  mode '0644'
 end
 
 execute 'run_unifi_container' do
-  command <<~EOH
-    docker run -d \
-      -e PUID=$(id -u unifi) \
-      -e PGID=$(id -g unifi) \
-      -e TZ=#{node['unifi']['timezone']} \
-      -v /opt/unifi/config:/config:z \
-      -p 3478:3478/udp \
-      -p 10001:10001/udp \
-      -p 8080:8080 \
-      -p 8443:8443 \
-      -p 1900:1900/udp \
-      -p 8843:8843 \
-      -p 8880:8880 \
-      -p 6789:6789 \
-      --privileged \
-      --name unifi-controller \
-      --restart unless-stopped \
-      linuxserver/unifi:latest
-  EOH
+  command 'docker-compose -f /opt/unifi/docker-compose.yml up -d'
   not_if "docker ps -a --format '{{.Names}}' | grep -w unifi-controller"
 end
