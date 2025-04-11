@@ -39,11 +39,6 @@ directory '/opt/unifi/config' do
   recursive true
 end
 
-execute 'install_docker_compose' do
-  command 'curl -L "https://github.com/docker/compose/releases/download/2.33.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose'
-  not_if 'which docker-compose'
-end
-
 file '/opt/unifi/docker-compose.yml' do
   content <<-EOH
 version: '3.7'
@@ -75,6 +70,6 @@ services:
 end
 
 execute 'run_unifi_container' do
-  command '/usr/local/bin/docker-compose -f /opt/unifi/docker-compose.yml up -d'
+  command 'docker compose -f /opt/unifi/docker-compose.yml up -d'
   not_if "docker ps -a --format '{{.Names}}' | grep -w unifi-controller"
 end
