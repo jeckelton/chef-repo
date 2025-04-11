@@ -40,7 +40,7 @@ directory '/opt/unifi/config' do
 end
 
 execute 'install_docker_compose' do
-  command 'curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose'
+  command 'curl -L "https://github.com/docker/compose/releases/download/2.33.1/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose && chmod +x /usr/local/bin/docker-compose'
   not_if 'which docker-compose'
 end
 
@@ -57,7 +57,7 @@ services:
       - PGID=#{node['unifi']['pgid']}
       - TZ=#{node['unifi']['timezone']}
     volumes:
-      - /opt/unifi/config:/config:z
+      - /opt/unifi/config:/unifi:z
     ports:
       - "3478:3478/udp"
       - "10001:10001/udp"
