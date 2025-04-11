@@ -59,7 +59,7 @@ execute 'run_unifi_container' do
       -p 8843:8843 \
       -p 8880:8880 \
       -p 6789:6789 \
-      --priviledged \
+      --privileged \
       --name unifi-controller \
       --restart unless-stopped \
       linuxserver/unifi:latest
