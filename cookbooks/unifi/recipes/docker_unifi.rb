@@ -27,9 +27,11 @@ group 'docker' do
   action :create
 end
 
-execute 'enable_docker_user_namespace' do
-  command 'usermod -aG docker root'
-  not_if 'getent group docker | grep root'
+directory '/opt/unifi/config' do
+  owner 'unifi'
+  group 'unifi'
+  mode '0755'
+  recursive true
 end
 
 execute 'pull_unifi_image' do
@@ -38,9 +40,12 @@ execute 'pull_unifi_image' do
 end
 
 execute 'run_unifi_container' do
-  command <<-EOH
+  command <<~EOH
     docker run -d \
-      -e unifi.controller.bind_ip=0.0.0.0 \
+      -e PUID=$(id -u unifi) \
+      -e PGID=$(id -g unifi) \
+      -e TZ=#{node['unifi']['timezone']} \
+      -v /opt/unifi/config:/config:z \
       -p 3478:3478/udp \
       -p 10001:10001/udp \
       -p 8080:8080 \
@@ -49,7 +54,7 @@ execute 'run_unifi_container' do
       -p 8843:8843 \
       -p 8880:8880 \
       -p 6789:6789 \
-      --name=unifi-controller \
+      --name unifi-controller \
       --restart unless-stopped \
       linuxserver/unifi:latest
   EOH
