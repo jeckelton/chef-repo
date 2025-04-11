@@ -1,3 +1,3 @@
 default['unifi']['timezone'] = 'Europe/Amsterdam'
-default['unifi']['puid'] = Etc.getpwnam('unifi').uid
-default['unifi']['pgid'] = Etc.getgrnam('unifi').gid
+default['unifi']['puid'] = '1001'
+default['unifi']['pgid'] = '1001'
