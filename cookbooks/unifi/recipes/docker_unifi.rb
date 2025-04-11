@@ -6,7 +6,7 @@ end
 execute 'dnf_makecache' do
   command 'dnf makecache'
   action :run
-en
+end
 
 execute 'wait_for_repo' do
   command 'sleep 15'
