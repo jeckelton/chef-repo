@@ -75,6 +75,6 @@ services:
 end
 
 execute 'run_unifi_container' do
-  command 'docker-compose -f /opt/unifi/docker-compose.yml up -d'
+  command '/usr/local/bin/docker-compose -f /opt/unifi/docker-compose.yml up -d'
   not_if "docker ps -a --format '{{.Names}}' | grep -w unifi-controller"
 end
