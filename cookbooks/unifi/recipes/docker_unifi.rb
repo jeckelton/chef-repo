@@ -40,7 +40,7 @@ directory '/opt/unifi/config' do
 end
 
 file '/opt/unifi/docker-compose.yml' do
-  content docker_compose.yml.erb
+  content 'docker_compose.yml.erb'
   owner 'unifi'
   group 'unifi'
   mode '0644'
