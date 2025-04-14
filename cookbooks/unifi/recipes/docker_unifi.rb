@@ -39,8 +39,8 @@ directory '/opt/unifi/config' do
   recursive true
 end
 
-file '/opt/unifi/docker-compose.yml' do
-  content 'docker_compose.yml.erb'
+template '/opt/unifi/docker-compose.yml' do
+  source 'docker_compose.yml.erb'
   owner 'unifi'
   group 'unifi'
   mode '0644'
