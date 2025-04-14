@@ -40,33 +40,19 @@ directory '/opt/unifi/config' do
 end
 
 file '/opt/unifi/docker-compose.yml' do
-  content <<-EOH
-version: '3.7'
-services:
-  unifi-controller:
-    image: jacobalberty/unifi:latest
-    container_name: unifi-controller
-    restart: unless-stopped
-    environment:
-      - PUID=#{node['unifi']['puid']}
-      - PGID=#{node['unifi']['pgid']}
-      - TZ=#{node['unifi']['timezone']}
-    volumes:
-      - /opt/unifi/config:/unifi:z
-    ports:
-      - "3478:3478/udp"
-      - "10001:10001/udp"
-      - "8080:8080"
-      - "8443:8443"
-      - "1900:1900/udp"
-      - "8843:8843"
-      - "8880:8880"
-      - "6789:6789"
-    privileged: true
-  EOH
+  content docker_compose.yml.erb
   owner 'unifi'
   group 'unifi'
   mode '0644'
+  variables(
+    image: node['unifi']['docker']['container']['image'],
+    container_name: node['unifi']['docker']['container']['name'],
+    restart: node['unifi']['docker']['container']['restart'],
+    PUID: node['unifi']['puid'],
+    PGID: node['unifi']['pgid'],
+    TZ: node['unifi']['timezone'],
+    privileged: node['unifi']['docker']['container']['privileged']
+  )
 end
 
 execute 'run_unifi_container' do
