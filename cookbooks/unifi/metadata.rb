@@ -3,7 +3,7 @@ maintainer 'Jeremy Eckelton'
 maintainer_email 'jeremy.eckelton@gmail.com'
 license 'MIT'
 description 'Installs/Configures unifi'
-version '0.2.17'
+version '0.2.20'
 chef_version '>= 16.0'
 
 # The `issues_url` points to the location where issues for this cookbook are
