@@ -4,7 +4,7 @@
 #
 # Copyright:: 2025, Jeremy Eckelton, All Rights Reserved.
 
-package %w(java-17-openjdk java-17-openjdk-devel mariadb mariadb-server) do
+package %w(java-17-openjdk java-17-openjdk-devel mariadbmariadb-server) do
   action :install
 end
 
@@ -43,6 +43,10 @@ end
 package 'rundeck' do
   version node['rundeck']['version']
   action :install
+end
+
+service 'rundeckd' do
+  action :nothing
 end
 
 template '/etc/rundeck/framework.properties' do
