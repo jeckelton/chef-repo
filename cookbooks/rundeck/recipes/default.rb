@@ -4,7 +4,7 @@
 #
 # Copyright:: 2025, Jeremy Eckelton, All Rights Reserved.
 
-package %w(java-17-openjdk java-17-openjdk-devel mariadbmariadb-server) do
+package %w(java-17-openjdk java-17-openjdk-devel mariadb mariadb-server) do
   action :install
 end
 
