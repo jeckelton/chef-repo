@@ -3,7 +3,7 @@ maintainer 'Jeremy Eckelton'
 maintainer_email 'jeremy.eckelton@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures rundeck'
-version '0.1.0'
+version '0.1.1'
 chef_version '>= 16.0'
 
 supports 'rocky'
