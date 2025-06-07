@@ -24,4 +24,6 @@ default['rundeck']['db']['password'] = 'TheSunSets2025!'
 # MariaDB Root Password
 default['rundeck']['db']['root_pw'] = '7ck^jVwwYfVE&@wQ'
 
+# Realm Password
+default['rundeck']['admin']['password'] = 'ThisIsTheEnd3025!'
 
