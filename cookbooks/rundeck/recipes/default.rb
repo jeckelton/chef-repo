@@ -49,6 +49,20 @@ service 'rundeckd' do
   action :nothing
 end
 
+ruby_block 'update_admin_password_in_realm_properties' do
+  block do
+    file = Chef::Util::FileEdit.new('/etc/rundeck/realm.properties')
+    password = node['rundeck']['admin']['password']
+    file.search_file_replace_line(/^admin:[^,]+,/, "admin:#{password},")
+    unless file.search_file(/^(admin:)/)
+      file.insert_line_if_no_match(/^admin:/, "admin:#{password},user,admin,architect,deploy,build")
+    end
+    file.write_file
+  end
+  only_if { ::File.exist?('/etc/rundeck/realm.properties') }
+  notifies :restart, 'service[rundeckd]', :delayed
+end
+
 template '/etc/rundeck/framework.properties' do
   source 'framework.properties.erb'
   owner 'rundeck'
