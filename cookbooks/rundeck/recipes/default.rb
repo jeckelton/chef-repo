@@ -14,7 +14,8 @@ end
 
 execute 'set-mariadb-root-password' do
   command "mysqladmin -u root password '#{node['rundeck']['db']['root_pw']}'"
-  only_if "mysql -u root -e 'status'"
+  only_if "mysql -u root -e 'status' 2>&1 | grep -q 'Access denied'"
+  not_if "mysql -uroot -p'#{node['rundeck']['db']['root_pw']}' -e 'status' >/dev/null 2>&1"
   ignore_failure true
 end
 
