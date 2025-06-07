@@ -1,8 +1,7 @@
 #This file is controlled by Chef, changing it here will leave you disappointed
 
 grails.serverURL=<%= @server_url %>
-dataSource.dbCreate = update
 dataSource.url = jdbc:mysql://localhost:3306/<%= @db_name %>?autoReconnect=true&useSSL=false
 dataSource.username = <%= @db_user %>
 dataSource.password = <%= @db_pass %>
-dataSource.driverClassName = com.mysql.jdbc.Driver
+dataSource.driverClassName = org.mariadb.jdbc.Driver
