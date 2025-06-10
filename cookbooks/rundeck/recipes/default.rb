@@ -61,7 +61,7 @@ ruby_block 'update_admin_password_in_realm_properties' do
     fe.insert_line_if_no_match(/^admin:/, newline)
     fe.write_file
   end
-  not_if { ::File.readlines('/etc/rundeck/realm.properties').grep(/^admin:#{Regexp.escape(new_password)}/).any? }
+  not_if { ::File.readlines('/etc/rundeck/realm.properties').grep(/^admin:#{Regexp.escape(password)}/).any? }
 end
 
 template '/etc/rundeck/framework.properties' do
