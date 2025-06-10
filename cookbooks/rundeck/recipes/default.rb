@@ -78,7 +78,8 @@ template '/etc/rundeck/framework.properties' do
     name: node['rundeck']['framework']['name'],
     server_url: node['rundeck']['framework']['server_url'],
     hostname: node['rundeck']['framework']['hostname'],
-    port: node['rundeck']['framework']['port']
+    port: node['rundeck']['framework']['port'],
+    log_dir: node['rundeck']['framwork']['logs']
   )
   notifies :restart, 'service[rundeckd]', :delayed
 end

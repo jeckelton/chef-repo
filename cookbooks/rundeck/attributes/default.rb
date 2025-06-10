@@ -15,6 +15,7 @@ default['rundeck']['framework']['hostname'] = 'http://testvm.fritz.box'
 default['rundeck']['framework']['name'] = 'Rundeck'
 default['rundeck']['framework']['port'] = '4440'
 default['rundeck']['framework']['server_url'] = 'http://testvm.fritz.box:4440'
+default['rundeck']['framwork']['logs'] = '/var/log/rundeck'
 
 # DB settings
 default['rundeck']['db']['name'] = 'rundeck'
