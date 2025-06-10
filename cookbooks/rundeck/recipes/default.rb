@@ -66,6 +66,7 @@ ruby_block 'update_admin_password_in_realm_properties' do
     ::File.exist?('/etc/rundeck/realm.properties') &&
       ::File.readlines('/etc/rundeck/realm.properties').grep(/^admin:#{Regexp.escape(password)}/).any?
   end
+  notifies :restart, 'service[rundeckd]', :immediately
 end
 
 template '/etc/rundeck/framework.properties' do
