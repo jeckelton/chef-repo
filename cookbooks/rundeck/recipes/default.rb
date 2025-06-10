@@ -95,7 +95,10 @@ template '/etc/rundeck/rundeck-config.properties' do
     db_name: node['rundeck']['db']['name'],
     db_user: node['rundeck']['db']['user'],
     db_pass: node['rundeck']['db']['password'],
-    db_driver: node['rundeck']['db']['driver']
+    db_driver: node['rundeck']['db']['driver'],
+    staticresource: node['rundeck']['conf']['staticresource'],
+    gui_logo: node['rundeck']['conf']['logo'],
+    login_welcome: node['rundeck']['conf']['loginwelcome']
   )
   notifies :restart, 'service[rundeckd]', :delayed
 end
