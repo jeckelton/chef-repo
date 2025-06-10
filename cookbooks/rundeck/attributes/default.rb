@@ -23,6 +23,11 @@ default['rundeck']['db']['user'] = 'rundeck'
 default['rundeck']['db']['password'] = 'TheSunSets2025!'
 default['rundeck']['db']['driver'] = 'org.mariadb.jdbc.Driver'
 
+#Additional confs
+default['rundeck']['conf']['staticresource'] = 'true'
+default['rundeck']['conf']['logo'] = 'rundeck-header-logo.png'
+default['rundeck']['conf']['loginwelcome'] = 'Welcome to the NewCold Rundeck Instance'
+
 # MariaDB Root Password
 default['rundeck']['db']['root_pw'] = '7ck^jVwwYfVE&@wQ'
 
