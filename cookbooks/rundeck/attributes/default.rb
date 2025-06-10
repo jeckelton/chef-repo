@@ -26,5 +26,5 @@ default['rundeck']['db']['driver'] = 'org.mariadb.jdbc.Driver'
 default['rundeck']['db']['root_pw'] = '7ck^jVwwYfVE&@wQ'
 
 # Realm Password
-default['rundeck']['admin']['password'] = 'ThisIsTheEnd3025!'
+default['rundeck']['admin']['password'] = 'ThisIsTheEnd2026!'
 
