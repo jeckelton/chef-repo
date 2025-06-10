@@ -20,6 +20,7 @@ default['rundeck']['framework']['server_url'] = 'http://testvm.fritz.box:4440'
 default['rundeck']['db']['name'] = 'rundeck'
 default['rundeck']['db']['user'] = 'rundeck'
 default['rundeck']['db']['password'] = 'TheSunSets2025!'
+default['rundeck']['db']['driver'] = 'org.mariadb.jdbc.Driver'
 
 # MariaDB Root Password
 default['rundeck']['db']['root_pw'] = '7ck^jVwwYfVE&@wQ'

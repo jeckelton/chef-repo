@@ -4,4 +4,4 @@ grails.serverURL=<%= @server_url %>
 dataSource.url = jdbc:mysql://localhost:3306/<%= @db_name %>?autoReconnect=true&useSSL=false
 dataSource.username = <%= @db_user %>
 dataSource.password = <%= @db_pass %>
-dataSource.driverClassName = org.mariadb.jdbc.Driver
+dataSource.driverClassName = <%= @db_driver %>

@@ -61,8 +61,7 @@ ruby_block 'update_admin_password_in_realm_properties' do
     fe.insert_line_if_no_match(/^admin:/, newline)
     fe.write_file
   end
-  only_if { ::File.exist?('/etc/rundeck/realm.properties') }
-  notifies :restart, 'service[rundeckd]', :delayed
+  not_if { ::File.readlines('/etc/rundeck/realm.properties').grep(/^admin:#{Regexp.escape(new_password)}/).any? }
 end
 
 template '/etc/rundeck/framework.properties' do
@@ -89,7 +88,8 @@ template '/etc/rundeck/rundeck-config.properties' do
     server_url: node['rundeck']['framework']['server_url'],
     db_name: node['rundeck']['db']['name'],
     db_user: node['rundeck']['db']['user'],
-    db_pass: node['rundeck']['db']['password']
+    db_pass: node['rundeck']['db']['password'],
+    db_driver: node['rundeck']['db']['driver']
   )
   notifies :restart, 'service[rundeckd]', :delayed
 end
