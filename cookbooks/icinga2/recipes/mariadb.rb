@@ -27,7 +27,7 @@ bash 'create_web_db' do
     FLUSH PRIVILEGES;
 EOF
   EOH
-  not_if "mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' -e 'SHOW DATABASES;' | grep icinga"
+  not_if "mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' -e 'SHOW DATABASES;' | grep icingaweb"
 end
 
 bash 'import_ido_schema' do
