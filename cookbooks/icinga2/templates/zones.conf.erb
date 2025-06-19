@@ -1,0 +1,9 @@
+object Zone "master" {
+  endpoints = [<%= @masters.map { |m| "\"#{m['name']}\"" }.join(', ') %>]
+}
+
+<% @masters.each do |m| %>
+object Endpoint "<%= m['name'] %>" {
+  host = "<%= m['host'] %>"
+}
+<% end %>

@@ -1,0 +1,10 @@
+name 'icinga2'
+maintainer 'Jeremy Eckelton'
+maintainer_email 'jeremy.eckelton@gmail.com'
+license 'All Rights Reserved'
+description 'Installs/Configures icinga2'
+version '0.1.0'
+chef_version '>= 16.0'
+
+supports 'redhat'
+supports 'rocky'
