@@ -17,3 +17,6 @@ if [ ! -f "/var/lib/icinga2/certs/${CN}.crt" ]; then
     --trustedcert "/var/lib/icinga2/ca/ca.crt" \
     --host "$CN"
 fi
+
+chown -R icinga:icinga /var/lib/icinga2/certs /var/lib/icinga2/ca
+chmod 0600 /var/lib/icinga2/certs/*.key
