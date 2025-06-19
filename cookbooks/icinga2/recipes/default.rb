@@ -67,5 +67,16 @@ template '/etc/icinga2/features-enabled/api.conf' do
   notifies :restart, 'service[icinga2]', :immediately
 end
 
+template '/etc/icinga2/conf.d/api-user.con' do
+  source 'api-user.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables(
+    api_pass: node['icinga2_ha']['web']['api_password']
+  )
+  notifies :restart, 'service[icinga2]', :immediately
+end
+
 include_recipe '::mariadb'
 include_recipe '::webui'
