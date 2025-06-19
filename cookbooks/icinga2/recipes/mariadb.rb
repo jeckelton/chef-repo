@@ -18,6 +18,18 @@ EOF
   not_if "mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' -e 'SHOW DATABASES;' | grep icinga"
 end
 
+bash 'create_web_db' do
+  code <<-EOH
+    mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' <<EOF
+    CREATE DATABASE IF NOT EXISTS icingaweb;
+    CREATE USER IF NOT EXISTS 'icingaweb'@'localhost' IDENTIFIED BY '#{node['icinga2_ha']['db']['icingaweb_password']}';
+    GRANT ALL PRIVILEGES ON icingaweb.* TO 'icingaweb'@'localhost';
+    FLUSH PRIVILEGES;
+EOF
+  EOH
+  not_if "mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' -e 'SHOW DATABASES;' | grep icinga"
+end
+
 bash 'import_ido_schema' do
   code <<-EOH
     mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' icinga < /usr/share/icinga2-ido-mysql/schema/mysql.sql
