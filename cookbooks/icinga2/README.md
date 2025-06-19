@@ -1,4 +1,4 @@
 # icinga2
 
-TODO: Enter the cookbook description here.
+Cookbook to install Icinga2
 

@@ -51,7 +51,7 @@ end
 
 execute 'setup_pki' do
   command "/usr/local/bin/pki_setup.sh #{node['fqdn']}"
-  not_if { ::File.exist?("/var/lib/icinga2/certs/#{node['hostname']}.crt") }
+  not_if { ::File.exist?("/var/lib/icinga2/certs/#{node['fqdn']}.crt") }
   notifies :reload, 'service[icinga2]', :delayed
 end
 

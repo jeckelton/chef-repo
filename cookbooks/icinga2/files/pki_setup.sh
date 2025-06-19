@@ -6,6 +6,13 @@ CN="$1"
 mkdir -p /var/lib/icinga2/certs
 chown -R nagios:nagios /var/lib/icinga2/certs
 
+if [ ! -f "/var/lib/icinga2/ca/ca.crt" ]; then
+  icinga2 pki new-ca 
+fi
+
+cp /var/lib/icinga2/ca/ca.crt /var/lib/icinga2/certs/
+chown nagios:nagios /var/lib/icinga2/certs/ca.crt
+
 if [ ! -f "/var/lib/icinga2/certs/${CN}.crt" ]; then
   icinga2 pki new-cert \
     --cn "$CN" \
