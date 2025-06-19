@@ -48,9 +48,20 @@ cookbook_file '/usr/local/bin/pki_setup.sh' do
 end
 
 execute 'setup_pki' do
-  command "/usr/local/bin/pki_setup.sh #{node['hostname']}"
+  command "/usr/local/bin/pki_setup.sh #{node['fqdn']}"
   not_if { ::File.exist?("/var/lib/icinga2/certs/#{node['hostname']}.crt") }
   notifies :reload, 'service[icinga2]', :delayed
+end
+
+template '/etc/icinga2/features-enabled/api.conf' do
+  source 'api.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables(
+    fqdn: node['fqdn']
+  )
+  notifies :restart, 'service[icinga2]', :immediately
 end
 
 include_recipe '::mariadb'

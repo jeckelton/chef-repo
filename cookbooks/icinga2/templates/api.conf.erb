@@ -1,0 +1,14 @@
+/**
+ * The API listener is used for distributed monitoring setups.
+ */
+
+object ApiListener "api" {
+  cert_path = "/var/lib/icinga2/certs/<%= @fqdn %>.crt"
+  key_path = "/var/lib/icinga2/certs/<%= @fqdn %>.key"
+  ca_path = "/var/lib/icinga2/ca/ca.crt"
+
+  accept_config = true
+  accept_commands = true
+
+  ticket_salt = TicketSalt
+}
