@@ -1,7 +1,15 @@
+directory '/var/log/icingaweb2' do
+  owner 'www-data'
+  group 'www-data'
+  mode '0755'
+  recursive true
+  action :create
+end
+
 bash 'setup_web_permissions' do
   code <<-EOH
-    chown -R nagios:nagios /etc/icingaweb2
-    chown -R nagios:nagios /var/log/icingaweb2
+    chown -R www-data:www-data /etc/icingaweb2
+    chown -R www-data:www-data /var/log/icingaweb2
   EOH
   only_if { ::Dir.exist?('/etc/icingaweb2') }
 end
@@ -17,8 +25,8 @@ end
 
 template '/etc/icingaweb2/resources.ini' do
   source 'resources.ini.erb'
-  owner 'nagios'
-  group 'nagios'
+  owner 'www-data'
+  group 'www-data'
   mode '0640'
   variables(
     db_user: 'icinga',
