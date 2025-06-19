@@ -18,5 +18,5 @@ if [ ! -f "/var/lib/icinga2/certs/${CN}.crt" ]; then
     --host "$CN"
 fi
 
-chown -R icinga:icinga /var/lib/icinga2/certs /var/lib/icinga2/ca
+chown -R nagios:nagios /var/lib/icinga2/certs /var/lib/icinga2/ca
 chmod 0600 /var/lib/icinga2/certs/*.key
