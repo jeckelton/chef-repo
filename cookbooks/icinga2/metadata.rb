@@ -8,3 +8,4 @@ chef_version '>= 16.0'
 
 supports 'redhat'
 supports 'rocky'
+supports 'debian'
