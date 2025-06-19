@@ -9,7 +9,7 @@ end
 ports = [
   '5665/tcp',
   '443/tcp',
-  '80/tcp'
+  '80/tcp',
   '22/tcp'
 ]
   
