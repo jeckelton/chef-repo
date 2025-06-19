@@ -29,7 +29,8 @@ service 'mariadb' do
 end
 
 service 'icinga2' do
-  action [:enable, :start]
+  action :enable
+  supports status: true, restart: true, reload: true
 end
 
 service (platform_family?('rhel') ? 'httpd' : 'apache2') do
