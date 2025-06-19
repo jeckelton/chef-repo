@@ -44,3 +44,8 @@ EOF
   notifies :reload, 'service[icinga2]', :immediately
 end
 
+execute 'enable_icinga2_features' do
+  command 'icinga2 feature enable api ido-mysql checker mainlog'
+  not_if 'icinga2 feature list | grep -q "ido-mysql\s*\*\*"'
+  notifies :reload, 'service[icinga2]', :delayed
+end

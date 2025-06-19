@@ -8,7 +8,7 @@ if platform_family?('debian')
   execute 'add icinga repo' do
     command <<-EOH
       curl https://packages.icinga.com/icinga.key | gpg --dearmor > /usr/share/keyrings/icinga-archive-keyring.gpg
-      echo "deb [signed-by=/usr/share/keyrings/icinga-archive-keyring.gpg] https://packages.icinga.com/debian icinga-bullseye main" > /etc/apt/sources.list.d/icinga.list
+      echo "deb [signed-by=/usr/share/keyrings/icinga-archive-keyring.gpg] https://packages.icinga.com/debian icinga-bookworm main" > /etc/apt/sources.list.d/icinga.list
       apt-get update
     EOH
     not_if { ::File.exist?('/etc/apt/sources.list.d/icinga.list') }
@@ -32,12 +32,6 @@ end
 
 service (platform_family?('rhel') ? 'httpd' : 'apache2') do
   action [:enable, :start]
-end
-
-execute 'enable_icinga2_features' do
-  command 'icinga2 feature enable api ido-mysql checker mainlog'
-  not_if 'icinga2 feature list | grep -q "ido-mysql\s*\*\*"'
-  notifies :reload, 'service[icinga2]', :delayed
 end
 
 template '/etc/icinga2/zones.conf' do
