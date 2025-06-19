@@ -5,3 +5,5 @@ default['icinga2_ha']['masters'] = [
 default['icinga2_ha']['db']['root_password']   = 'a-very-strong-root-password'
 default['icinga2_ha']['db']['icinga_password'] = 'a-secure-icinga-password'
 default['icinga2_ha']['db']['icingaweb_password'] = 'a-secure-icingaweb-password'
+
+default['icinga2_ha']['web']['api_password'] = 'TheSunSets2025!'
