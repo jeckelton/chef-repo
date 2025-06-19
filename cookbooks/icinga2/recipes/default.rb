@@ -19,9 +19,9 @@ end
 
 case node['platform_family']
 when 'rhel'
-  package %w(icinga2 vim mariadb-server php php-cli php-fpm php-mysqlnd httpd icingaweb2 icingacli icinga2-ido-mysql)
+  package %w(icinga2 vim mariadb-server php php-cli php-fpm php-mysqlnd httpd icingaweb2 icingacli icinga2-ido-mysql icingaweb2-module-businessprocess)
 when 'debian'
-  package %w(icinga2 vim mariadb-server php php-cli php-fpm php-mysql apache2 icingaweb2 icingacli icinga2-ido-mysql)
+  package %w(icinga2 vim mariadb-server php php-cli php-fpm php-mysql apache2 icingaweb2 icingacli icinga2-ido-mysql icingaweb2-module-businessprocess)
 end
 
 service 'mariadb' do

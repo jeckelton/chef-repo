@@ -72,6 +72,15 @@ execute 'enable icingaweb2 site' do
   notifies :reload, 'service[apache2]', :delayed
 end
 
+execute 'enable_businessprocess_module' do
+  command 'icingacli module enable businessprocess'
+  user 'www-data'
+  environment({ 'HOME' => '/var/www' })
+  not_if 'icingacli module list | grep businessprocess'
+  notifies :reload, 'service[apache2]', :immediately if node['platform_family'] == 'debian'
+  notifies :reload, 'service[httpd]', :immediately if node['platform_family'] == 'rhel'
+end
+
 service 'apache2' do
   action [:enable, :start]
 end
