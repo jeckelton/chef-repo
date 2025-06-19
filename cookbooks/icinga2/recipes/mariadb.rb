@@ -32,20 +32,26 @@ bash 'import_ido_schema' do
 end
 
 file '/etc/icinga2/features-available/ido-mysql.conf' do
-  content <<-EOF
-library "db_ido_mysql"
-object IdoMysqlConnection "ido-mysql" {
-  user = "icinga"
-  password = "#{node['icinga2_ha']['db']['icinga_password']}"
-  host = "localhost"
-  database = "icinga"
-}
-EOF
-  notifies :reload, 'service[icinga2]', :immediately
+  content <<~EOF
+    library "db_ido_mysql"
+    object IdoMysqlConnection "ido-mysql" {
+      user = "icinga"
+      password = "#{node['icinga2_ha']['db']['icinga_password']}"
+      host = "localhost"
+      database = "icinga"
+    }
+  EOF
+  notifies :run, 'execute[enable_ido_mysql]', :immediately
 end
 
-execute 'enable_icinga2_features' do
-  command 'icinga2 feature enable api ido-mysql checker mainlog'
-  not_if 'icinga2 feature list | grep -q "ido-mysql\s*\*\*"'
+execute 'enable_ido_mysql' do
+  command 'icinga2 feature enable ido-mysql'
+  action :nothing
+  notifies :reload, 'service[icinga2]', :delayed
+end
+
+execute 'enable_other_icinga_features' do
+  command 'icinga2 feature enable api checker mainlog'
+  not_if 'icinga2 feature list | grep -q "api\\s*\\*\\*"'
   notifies :reload, 'service[icinga2]', :delayed
 end

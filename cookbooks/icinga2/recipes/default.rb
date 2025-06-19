@@ -49,7 +49,7 @@ end
 
 execute 'setup_pki' do
   command "/usr/local/bin/pki_setup.sh #{node['hostname']}"
-  not_if { ::File.exist?("/etc/icinga2/pki/#{node['hostname']}.crt") }
+  not_if { ::File.exist?("/var/lib/icinga2/certs/#{node['hostname']}.crt") }
   notifies :reload, 'service[icinga2]', :delayed
 end
 
