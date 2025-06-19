@@ -3,17 +3,17 @@ set -e
 
 CN="$1"
 
-mkdir -p /etc/icinga2/pki
+mkdir -p /var/lib/icinga2/certs /var/lib/icinga2/ca
 
-if [ ! -f "/etc/icinga2/pki/${CN}.crt" ]; then
+if [ ! -f "/var/lib/icinga2/certs/${CN}.crt" ]; then
   icinga2 pki new-cert \
     --cn "$CN" \
-    --key "/etc/icinga2/pki/${CN}.key" \
-    --cert "/etc/icinga2/pki/${CN}.crt"
+    --key "/var/lib/icinga2/certs/${CN}.key" \
+    --cert "/var/lib/icinga2/certs/${CN}.crt"
 
   icinga2 pki save-cert \
-    --key "/etc/icinga2/pki/${CN}.key" \
-    --cert "/etc/icinga2/pki/${CN}.crt" \
-    --trustedcert "/etc/icinga2/pki/ca.crt" \
+    --key "/var/lib/icinga2/certs/${CN}.key" \
+    --cert "/var/lib/icinga2/certs/${CN}.crt" \
+    --trustedcert "/var/lib/icinga2/ca/ca.crt" \
     --host "$CN"
 fi
