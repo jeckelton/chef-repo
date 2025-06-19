@@ -6,12 +6,6 @@ execute 'secure mariadb install' do
   ignore_failure true 
 end
 
-execute 'enable_icinga2_features' do
-  command 'icinga2 feature enable api ido-mysql checker mainlog'
-  not_if 'icinga2 feature list | grep -q "ido-mysql\s*\*\*"'
-  notifies :reload, 'service[icinga2]', :delayed
-end
-
 bash 'create_ido_db' do
   code <<-EOH
     mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' <<EOF
