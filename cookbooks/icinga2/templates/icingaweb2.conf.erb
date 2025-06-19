@@ -1,11 +1,20 @@
-Alias /icingaweb2 /usr/share/icingaweb2/public
+<VirtualHost *:80>
+    ServerName 192.168.178.62
 
-<Directory "/usr/share/icingaweb2/public">
-    Options None
-    AllowOverride None
-    Require all granted
-</Directory>
+    #SSLEngine on
+    #SSLCertificateFile /path/to/cert.pem
+    #SSLCertificateKeyFile /path/to/key.pem
+    # Possibly SSLCACertificateFile if needed
 
-<FilesMatch \.php$>
-    SetHandler "proxy:unix:/run/php/php8.2-fpm.sock|fcgi://localhost"
-</FilesMatch>
+    Alias /icingaweb2 /usr/share/icingaweb2/public
+
+    <Directory /usr/share/icingaweb2/public>
+        Options None
+        AllowOverride None
+        Require all granted
+    </Directory>
+
+    <FilesMatch \.php$>
+        SetHandler "proxy:unix:/run/php/php-fpm.sock|fcgi://localhost"
+    </FilesMatch>
+</VirtualHost>
