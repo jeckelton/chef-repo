@@ -40,6 +40,12 @@ ruby_block 'detect_php_fpm_service' do
   action :run
 end
 
+execute 'enable apache mods' do
+  command 'a2enmod proxy_fcgi setenvif'
+  not_if 'apache2ctl -M | grep proxy_fcgi_module'
+  notifies :reload, 'service[apache2]', :delayed
+end
+
 service 'php-fpm-dynamic' do
   service_name lazy { node.run_state['php_fpm_service'] || 'php-fpm' }
   action [:enable, :start]

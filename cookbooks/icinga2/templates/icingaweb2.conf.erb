@@ -5,3 +5,7 @@ Alias /icingaweb2 /usr/share/icingaweb2/public
     AllowOverride None
     Require all granted
 </Directory>
+
+<FilesMatch \.php$>
+    SetHandler "proxy:unix:/run/php/php8.2-fpm.sock|fcgi://localhost"
+</FilesMatch>
