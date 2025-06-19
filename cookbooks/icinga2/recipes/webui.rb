@@ -14,6 +14,21 @@ bash 'setup_web_permissions' do
   only_if { ::Dir.exist?('/etc/icingaweb2') }
 end
 
+file '/etc/icingaweb2/config.ini' do
+  content <<~EOF
+    [global]
+    authentication = "db"
+
+    [logging]
+    log_file = /var/log/icingaweb2/icingaweb2.log
+    log_level = "debug"
+  EOF
+  owner 'www-data'
+  group 'www-data'
+  mode '0640'
+  action :create
+end
+
 ruby_block 'detect_php_fpm_service' do
   block do
     require 'mixlib/shellout'
@@ -35,6 +50,22 @@ execute 'allow_httpd_php_fpm' do
   only_if 'getenforce | grep Enforcing'
 end
 
+template '/etc/apache2/sites-available/icingaweb2.conf' do
+  source 'icingaweb2.conf.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  variables()
+  action :create
+  notifies :reload, 'service[apache2]', :delayed
+end
+
+execute 'enable icingaweb2 site' do
+  command 'a2ensite icingaweb2'
+  not_if 'a2query -s | grep icingaweb2'
+  notifies :reload, 'service[apache2]', :delayed
+end
+
 template '/etc/icingaweb2/resources.ini' do
   source 'resources.ini.erb'
   owner 'www-data'
@@ -44,4 +75,8 @@ template '/etc/icingaweb2/resources.ini' do
     db_user: 'icinga',
     db_pass: node['icinga2_ha']['db']['icinga_password']
   )
+end
+
+service 'apache2' do
+  action [:enable, :start]
 end
