@@ -1,7 +1,7 @@
 bash 'setup_web_permissions' do
   code <<-EOH
-    chown -R apache:apache /etc/icingaweb2
-    chown -R apache:apache /var/log/icingaweb2
+    chown -R nagios:nagios /etc/icingaweb2
+    chown -R nagios:nagios /var/log/icingaweb2
   EOH
   only_if { ::Dir.exist?('/etc/icingaweb2') }
 end
@@ -17,8 +17,8 @@ end
 
 template '/etc/icingaweb2/resources.ini' do
   source 'resources.ini.erb'
-  owner 'apache'
-  group 'apache'
+  owner 'nagios'
+  group 'nagios'
   mode '0640'
   variables(
     db_user: 'icinga',
