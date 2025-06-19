@@ -4,6 +4,8 @@
 #
 # Copyright:: 2025, Jeremy Eckelton, All Rights Reserved.
 
+include_recipe '::firewalld'
+
 if platform_family?('debian')
   execute 'add icinga repo' do
     command <<-EOH
