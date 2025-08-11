@@ -6,11 +6,13 @@
 
 yum_repository 'grafana' do
   description 'Grafana OSS'
-  baseurl 'https://packages.grafana.com/oss/rpm'
-  gpgkey 'https://packages.grafana.com/gpg.key'
+  baseurl 'https://rpm.grafana.com'
   repo_gpgcheck true
-  gpgcheck true
   enabled true
+  gpgcheck true
+  gpgkey 'https://rpm.grafana.com/gpg.key'
+  sslverify true
+  sslcacert '/etc/pki/tls/certs/ca-bundle.crt'
 end
 
 package 'grafana' do
