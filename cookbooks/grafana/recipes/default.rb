@@ -41,8 +41,8 @@ ruby_block 'wait_for_grafana' do
   block do
     require 'net/http'
     require 'uri'
-    uri = URI('http://localhost:3000')
-    until Net::HTTP.get_response(uri).is_a?(Net::HTTPOK)
+    uri = URI('http://localhost:3000/login')
+    until Net::HTTP.get_response(uri).is_a?(Net::HTTPSuccess)
       Chef::Log.info('Waiting for Grafana to start...')
       sleep 5
     end
@@ -72,3 +72,5 @@ http_request 'add_prometheus_datasource' do
   retries 5
   retry_delay 5
 end
+
+include_recipe '::firewalld'
