@@ -1,0 +1,8 @@
+default['node_exporter']['version'] = '1.9.0'
+default['node_exporter']['user'] = 'node_exporter'
+default['node_exporter']['group'] = 'node_exporter'
+default['node_exporter']['install_dir'] = '/opt/node_exporter'
+default['node_exporter']['port'] = 9100
+default['node_exporter']['ssl_node_cert'] = '/etc/node_exporter/ssl/node.crt'
+default['node_exporter']['ssl_node_key'] = '/etc/node_exporter/ssl/node.key'
+default['node_exporter']['ssl_ca_cert'] = '/etc/node_exporter/ssl/ca.crt'

@@ -1,0 +1,10 @@
+default['prometheus']['version'] = '3.5.0'
+default['prometheus']['user'] = 'prometheus'
+default['prometheus']['group'] = 'prometheus'
+default['prometheus']['install_dir'] = '/opt/prometheus'
+default['prometheus']['config_dir'] = '/etc/prometheus'
+default['prometheus']['data_dir'] = '/var/lib/prometheus'
+default['prometheus']['port'] = 9090
+default['prometheus']['ssl_ca_cert'] = '/etc/prometheus/ssl/ca.crt'
+default['prometheus']['ssl_server_cert'] = '/etc/prometheus/ssl/server.crt'
+default['prometheus']['ssl_server_key'] = '/etc/prometheus/ssl/server.key'

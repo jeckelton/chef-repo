@@ -6,6 +6,8 @@ scrape_configs:
     scheme: https
     tls_config:
       ca_file: "<%= node['prometheus']['ssl_ca_cert'] %>"
+      cert_file: "<%= node['prometheus']['ssl_server_cert'] %>"
+      key_file: "<%= node['prometheus']['ssl_server_key'] %>"
       insecure_skip_verify: false
     static_configs:
       - targets:
