@@ -65,6 +65,16 @@ template "#{node['prometheus']['config_dir']}/prometheus.yml" do
   notifies :restart, 'service[prometheus]', :immediately
 end
 
+nodes = search(:node, 'fqdn:*fritz.box')
+targets = nodes.map { |n| { 'targets' => ["#{n['fqdn']}:9100"] } }
+
+file "#{node['prometheus']['config_dir']}/targets.json" do
+  content targets.to_json
+  owner node['prometheus']['user']
+  group node['prometheus']['group']
+  mode '0644'
+end
+
 file '/etc/systemd/system/prometheus.service' do
   content <<~SERVICE
     [Unit]

@@ -9,7 +9,6 @@ scrape_configs:
       cert_file: "<%= node['prometheus']['ssl_server_cert'] %>"
       key_file: "<%= node['prometheus']['ssl_server_key'] %>"
       insecure_skip_verify: false
-    static_configs:
-      - targets:
-          - 'node1:9100'
-          - 'node2:9100'
+    file_sd_configs:
+      - files:
+          - "<%= node['prometheus']['config_dir'] %>/targets.json"
