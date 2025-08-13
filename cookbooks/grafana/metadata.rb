@@ -3,7 +3,7 @@ maintainer 'The Authors'
 maintainer_email 'you@example.com'
 license 'All Rights Reserved'
 description 'Installs/Configures grafana'
-version '0.1.1'
+version '0.1.2'
 chef_version '>= 16.0'
 
 supports 'rocky'

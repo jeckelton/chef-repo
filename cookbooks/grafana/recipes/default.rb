@@ -49,28 +49,28 @@ ruby_block 'wait_for_grafana' do
   end
 end
 
-cookbook_file '/tmp/prometheus-datasource.json' do
-  source 'prometheus-datasource.json'
-  mode '0644'
-end
+#cookbook_file '/tmp/prometheus-datasource.json' do
+#  source 'prometheus-datasource.json'
+#  mode '0644'
+#end
 
-http_request 'add_prometheus_datasource' do
-  url 'http://localhost:3000/api/datasources'
-  message lazy {
-    file = Chef::JSONCompat.parse(::File.read('/tmp/prometheus-datasource.json'))
-    file['url'] = prometheus_url
-    file.to_json
-  }
-  headers({
-    'Content-Type' => 'application/json',
-    'Accept' => 'application/json',
-    'Authorization' => lazy {
-      "Basic #{Base64.strict_encode64("#{node['grafana']['admin_user']}:#{admin_password}")}"
-    }
-  })
-  action :post
-  retries 5
-  retry_delay 5
-end
+#http_request 'add_prometheus_datasource' do
+#  url 'http://localhost:3000/api/datasources'
+#  message lazy {
+#    file = Chef::JSONCompat.parse(::File.read('/tmp/prometheus-datasource.json'))
+#    file['url'] = prometheus_url
+#    file.to_json
+#  }
+#  headers({
+#    'Content-Type' => 'application/json',
+#    'Accept' => 'application/json',
+#    'Authorization' => lazy {
+#      "Basic #{Base64.strict_encode64("#{node['grafana']['admin_user']}:#{admin_password}")}"
+#    }
+#  })
+#  action :post
+#  retries 5
+#  retry_delay 5
+#end
 
 include_recipe '::firewalld'
