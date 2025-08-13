@@ -1,9 +1,9 @@
 name 'graylog2'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Jeremy Eckelton'
+maintainer_email 'jeremy.eckelton@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures graylog2'
-version '0.4.10'
+version '0.4.11'
 chef_version '>= 16.0'
 
 supports 'debian'

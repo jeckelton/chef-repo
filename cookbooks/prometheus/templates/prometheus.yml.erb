@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 15s
+
+scrape_configs:
+  - job_name: 'node_exporter'
+    scheme: https
+    tls_config:
+      ca_file: "<%= node['prometheus']['ssl_ca_cert'] %>"
+      insecure_skip_verify: false
+    static_configs:
+      - targets:
+          - 'node1:9100'
+          - 'node2:9100'

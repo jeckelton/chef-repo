@@ -1,9 +1,9 @@
 name 'grafana'
-maintainer 'The Authors'
-maintainer_email 'you@example.com'
+maintainer 'Jeremy Eckelton'
+maintainer_email 'jeremy.eckelton@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures grafana'
-version '0.1.2'
+version '0.1.3'
 chef_version '>= 16.0'
 
 supports 'rocky'
