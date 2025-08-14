@@ -69,7 +69,7 @@ file '/etc/systemd/system/node_exporter.service' do
     User=#{node['node_exporter']['user']}
     Group=#{node['node_exporter']['group']}
     ExecStart=#{node['node_exporter']['install_dir']}/node_exporter \
-      --web.listen-address=:#{node['node_exporter']['port']} \
+      --web.listen-address=0.0.0.0:#{node['node_exporter']['port']} \
       --web.config.file=/etc/node_exporter/web.yml
     Restart=always
 
