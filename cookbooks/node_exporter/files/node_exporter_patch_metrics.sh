@@ -79,3 +79,6 @@ SECURITY_UPDATES_CSV=$(echo "$SECURITY_UPDATES_LIST" | paste -sd "," -)
 } > "$TMP_FILE"
 
 mv "$TMP_FILE" "$METRIC_FILE"
+
+chown node_exporter:node_exporter "$METRIC_FILE"
+chmod 644 "$METRIC_FILE"

@@ -92,8 +92,8 @@ file '/etc/node_exporter/web.yml' do
     tls_server_config:
       cert_file: "#{node['node_exporter']['ssl_node_cert']}"
       key_file: "#{node['node_exporter']['ssl_node_key']}"
-      #client_auth_type: "RequireAndVerifyClientCert" - Uncomment to enable mTLS with Prometheus
-      #client_ca_file: "#{node['node_exporter']['ssl_ca_cert']}" - Uncomment to enable mTLS with Prometheus
+      client_auth_type: "RequireAndVerifyClientCert"      # Comment to disable mTLS with Prometheus
+      client_ca_file: "#{node['node_exporter']['ssl_ca_cert']}" # Comment to disable mTLS with Prometheus
   YML
   owner node['node_exporter']['user']
   group node['node_exporter']['group']
