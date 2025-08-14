@@ -4,7 +4,7 @@
 #
 # Copyright:: 2025, Jeremy, All Rights Reserved.
 
-package %w(wget tar)
+package %w(wget tar dnf-plugins-core)
 
 group node['node_exporter']['group']
 user node['node_exporter']['user'] do
