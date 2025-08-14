@@ -75,6 +75,10 @@ file "#{node['prometheus']['config_dir']}/targets.json" do
   mode '0644'
 end
 
+execute 'systemctl daemon-reload' do
+  action :nothing
+end
+
 file '/etc/systemd/system/prometheus.service' do
   content <<~SERVICE
     [Unit]
@@ -95,6 +99,8 @@ file '/etc/systemd/system/prometheus.service' do
     WantedBy=multi-user.target
   SERVICE
   mode '0644'
+  notifies :run, 'execute[systemctl daemon-reload]', :immediately
+  notifies :restart, 'service[prometheus]', :delayed
 end
 
 # TLS config attempt
