@@ -23,7 +23,7 @@ if command -v dnf >/dev/null 2>&1 || command -v yum >/dev/null 2>&1; then
   AVAILABLE_UPDATES=$(echo "$AVAILABLE_UPDATES_LIST" | wc -l)
 
   if command -v dnf-plugins-core >/dev/null 2>&1 || rpm -q dnf-plugins-core >/dev/null 2>&1; then
-    SECURITY_UPDATES_LIST=$(dnf updateinfo list security 2>/dev/null | awk 'NR>2 {print $2":"$3}')
+    SECURITY_UPDATES_LIST=$(dnf check-update --security -q | awk 'NF {print $1}' | paste -sd "," -)
     SECURITY_UPDATES=$(echo "$SECURITY_UPDATES_LIST" | wc -l)
   else
     SECURITY_UPDATES_LIST=""
@@ -57,25 +57,25 @@ AVAILABLE_UPDATES_CSV=$(echo "$AVAILABLE_UPDATES_LIST" | paste -sd "," -)
 SECURITY_UPDATES_CSV=$(echo "$SECURITY_UPDATES_LIST" | paste -sd "," -)
 
 {
-    echo "# HELP system_last_patch_time Unix timestamp of last patch applied"
-    echo "# TYPE system_last_patch_time gauge"
-    echo "system_last_patch_time $LAST_PATCH_TS"
+  echo "# HELP system_last_patch_time Unix timestamp of last patch applied"
+  echo "# TYPE system_last_patch_time gauge"
+  echo "system_last_patch_time $LAST_PATCH_TS"
 
-    echo "# HELP system_available_updates Number of available updates"
-    echo "# TYPE system_available_updates gauge"
-    echo "system_available_updates $AVAILABLE_UPDATES"
+  echo "# HELP system_available_updates Number of available updates"
+  echo "# TYPE system_available_updates gauge"
+  echo "system_available_updates $AVAILABLE_UPDATES"
 
-    echo "# HELP system_available_updates_packages Comma-separated list of available updates"
-    echo "# TYPE system_available_updates_packages gauge"
-    echo "system_available_updates_packages{packages=\"$AVAILABLE_UPDATES_CSV\"} 1"
+  echo "# HELP system_available_updates_packages Comma-separated list of available updates"
+  echo "# TYPE system_available_updates_packages gauge"
+  echo "system_available_updates_packages{packages=\"$AVAILABLE_UPDATES_CSV\"} 1"
 
-    echo "# HELP system_security_updates Number of available security updates"
-    echo "# TYPE system_security_updates gauge"
-    echo "system_security_updates $SECURITY_UPDATES"
+  echo "# HELP system_security_updates Number of available security updates"
+  echo "# TYPE system_security_updates gauge"
+  echo "system_security_updates $SECURITY_UPDATES"
 
-    echo "# HELP system_security_updates_packages Comma-separated list of security updates"
-    echo "# TYPE system_security_updates_packages gauge"
-    echo "system_security_updates_packages{packages=\"$SECURITY_UPDATES_CSV\"} 1"
+  echo "# HELP system_security_updates_packages Comma-separated list of security updates"
+  echo "# TYPE system_security_updates_packages gauge"
+  echo "system_security_updates_packages{packages=\"$SECURITY_UPDATES_CSV\"} 1"
 } > "$TMP_FILE"
 
 mv "$TMP_FILE" "$METRIC_FILE"
