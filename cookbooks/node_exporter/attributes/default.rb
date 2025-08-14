@@ -6,3 +6,4 @@ default['node_exporter']['port'] = 9100
 default['node_exporter']['ssl_node_cert'] = '/etc/node_exporter/ssl/node.crt'
 default['node_exporter']['ssl_node_key'] = '/etc/node_exporter/ssl/node.key'
 default['node_exporter']['ssl_ca_cert'] = '/etc/node_exporter/ssl/ca.crt'
+default['node_exporter']['textfile_collector_dir'] = '/var/lib/node_exporter/textfile_collector'

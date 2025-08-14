@@ -16,7 +16,8 @@ end
 [
   '/etc/node_exporter',
   '/etc/node_exporter/ssl',
-  node['node_exporter']['install_dir']
+  node['node_exporter']['install_dir'],
+  node['node_exporter']['textfile_collector_dir']
 ].each do |dir|
   directory dir do
     owner node['node_exporter']['user']
@@ -70,13 +71,20 @@ file '/etc/systemd/system/node_exporter.service' do
     Group=#{node['node_exporter']['group']}
     ExecStart=#{node['node_exporter']['install_dir']}/node_exporter \
       --web.listen-address=0.0.0.0:#{node['node_exporter']['port']} \
-      --web.config.file=/etc/node_exporter/web.yml
+      --web.config.file=/etc/node_exporter/web.yml \
+      --collector.textfile.directory=#{node['node_exporter']['textfile_collector_dir']}
     Restart=always
 
     [Install]
     WantedBy=multi-user.target
   SERVICE
   mode '0644'
+  notifies :run, 'execute[reload systemd]', :immediately
+end
+
+execute 'reload systemd' do
+  command 'systemctl daemon-reload && systemctl restart node_exporter'
+  action :nothing
 end
 
 file '/etc/node_exporter/web.yml' do
@@ -94,4 +102,18 @@ end
 
 service 'node_exporter' do
   action [:enable, :start]
+end
+
+cookbook_file '/usr/local/bin/node_exporter_patch_metrics.sh' do
+  source 'node_exporter_patch_metrics.sh'
+  owner 'root'
+  group 'root'
+  mode '0755'
+end
+
+cron 'node_exporter_patch_metrics' do
+  minute '0'
+  hour '3'
+  user 'root'
+  command '/usr/local/bin/node_exporter_patch_metrics.sh'
 end
