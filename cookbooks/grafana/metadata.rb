@@ -3,7 +3,7 @@ maintainer 'Jeremy Eckelton'
 maintainer_email 'jeremy.eckelton@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures grafana'
-version '0.1.5'
+version '0.1.6'
 chef_version '>= 16.0'
 
 supports 'rocky'

@@ -64,8 +64,15 @@ ruby_block 'wait_for_grafana' do
   block do
     require 'net/http'
     require 'uri'
+    require 'openssl'
+
     uri = URI('https://grafana.fritz.box:3000/login')
-    until Net::HTTP.get_response(uri).is_a?(Net::HTTPSuccess)
+
+    http = Net::HTTP.new(uri.host, uri.port)
+    http.use_ssl = true
+    http.verify_mode = OpenSSL::SSL::VERIFY_NONE  # <-- skip SSL verification
+
+    until http.get(uri).is_a?(Net::HTTPOK)
       Chef::Log.info('Waiting for Grafana to start...')
       sleep 5
     end
