@@ -3,7 +3,7 @@ maintainer 'Jeremy Eckelton'
 maintainer_email 'jeremy.eckelton@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures node_exporter'
-version '0.1.7'
+version '0.1.8'
 chef_version '>= 16.0'
 
 supports 'redhat'
