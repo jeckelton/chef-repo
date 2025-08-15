@@ -64,7 +64,7 @@ ruby_block 'wait_for_grafana' do
   block do
     require 'net/http'
     require 'uri'
-    uri = URI('http://localhost:3000/login')
+    uri = URI('https://grafana.fritz.box:3000/login')
     until Net::HTTP.get_response(uri).is_a?(Net::HTTPSuccess)
       Chef::Log.info('Waiting for Grafana to start...')
       sleep 5
