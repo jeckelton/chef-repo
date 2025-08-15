@@ -3,7 +3,11 @@ admin_user = <%= @admin_user %>
 admin_password = <%= @admin_password %>
 
 [server]
+protocol = https
+http_addr = 0.0.0.0
 http_port = 3000
-domain = localhost
+domain = fritz.box
 root_url = %(protocol)s://%(domain)s:%(http_port)s/
 serve_from_sub_path = false
+cert_file = <%= node['grafana']['cert_file'] %>
+cert_key  = <%= node['grafana']['cert_key'] %>

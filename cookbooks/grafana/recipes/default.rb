@@ -19,6 +19,29 @@ package 'grafana' do
   action :install
 end
 
+directory node['grafana']['ssl_dir'] do
+  owner 'root'
+  group 'grafana'
+  mode '0750'
+  recursive true
+end
+
+tls_data = data_bag_item('tls', 'wildcard')
+
+file node['grafana']['cert_file'] do
+  content tls_data['cert']
+  owner 'root'
+  group 'grafana'
+  mode '0640'
+end
+
+file node['grafana']['cert_key'] do
+  content tls_data['key']
+  owner 'root'
+  group 'grafana'
+  mode '0640'
+end
+
 grafana_secrets = data_bag_item('grafana', 'grafana_secrets')
 admin_password = grafana_secrets['admin_password']
 prometheus_url = grafana_secrets['prometheus_url']
