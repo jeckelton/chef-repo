@@ -16,7 +16,9 @@ SECURITY_UPDATES_LIST=""
 
 if command -v dnf >/dev/null 2>&1 || command -v yum >/dev/null 2>&1; then
   # RHEL-based
-  LAST_PATCH=$(grep -E 'Upgraded:|Updated:' /var/log/dnf.log /var/log/yum.log 2>/dev/null | tail -1 | awk '{print $1" "$2}')
+  LAST_PATCH_RAW=$(dnf history list -q | grep update | head -1)
+  # Extract date and time regardless of columns
+  LAST_PATCH=$(echo "$LAST_PATCH_RAW" | awk '{for(i=1;i<=NF;i++){if($i ~ /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/){date=$i; time=$(i+1); print date" "time; exit}}}')
   LAST_PATCH_TS=$(date -d "$LAST_PATCH" +%s 2>/dev/null || echo 0)
 
   AVAILABLE_UPDATES_LIST=$(dnf check-update --quiet 2>/dev/null | grep -E '^[a-zA-Z0-9]' | awk '{print $1":"$2}')
@@ -84,6 +86,5 @@ fi
 } > "$TMP_FILE"
 
 mv "$TMP_FILE" "$METRIC_FILE"
-
 chown node_exporter:node_exporter "$METRIC_FILE"
 chmod 644 "$METRIC_FILE"
