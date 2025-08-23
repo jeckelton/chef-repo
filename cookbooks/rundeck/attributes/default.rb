@@ -8,7 +8,7 @@ default['rundeck']['repo']['gpgkey'] = 'https://packages.rundeck.com/pagerduty/r
 default['rundeck']['repo']['sslverify'] = true
 default['rundeck']['repo']['sslcacert'] = '/etc/pki/tls/certs/ca-bundle.crt'
 default['rundeck']['repo']['metadata_expire'] = '300'
-default['rundeck']['version'] = '5.10.1.20250415-1'
+default['rundeck']['version'] = '5.14.1.20250818-1'
 
 # Framework config
 default['rundeck']['framework']['hostname'] = 'http://testvm.fritz.box'
