@@ -30,6 +30,7 @@ if platform_family?('windows')
 
   service 'icinga2' do
     action [:enable, :start]
+    supports status: true, restart: true
   end
 
   # zones.conf (shared template)
@@ -38,7 +39,8 @@ if platform_family?('windows')
     variables(
       masters: node['icinga2_ha']['masters']
     )
-    notifies :reload, 'service[icinga2]', :delayed
+    # Windows services don't support :reload, use :restart instead
+    notifies :restart, 'service[icinga2]', :delayed
   end
 
   # api.conf (shared template)
