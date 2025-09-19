@@ -5,6 +5,5 @@ object Zone "master" {
 <% @masters.each do |m| %>
 object Endpoint "<%= m['name'] %>" {
   host = "<%= m['host'] %>"
-  api_user = "icingaweb2"
 }
 <% end %>
