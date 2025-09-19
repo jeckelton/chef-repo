@@ -95,3 +95,20 @@ execute 'enable_director_module' do
   notifies :reload, 'service[apache2]', :immediately if platform_family?('debian')
   notifies :reload, 'service[httpd]', :immediately if platform_family?('rhel')
 end
+
+# Setup Director database resource
+execute 'setup_director_db_resource' do
+  command <<-EOH
+    icingacli director db add \
+      --resource DirectorDB \
+      --type mysql \
+      --host localhost \
+      --dbname director \
+      --user director \
+      --password '#{node['icinga2_ha']['db']['director_password']}'
+  EOH
+  not_if "icingacli director db list | grep DirectorDB"
+  user 'www-data'
+  environment({ 'HOME' => '/var/www' })
+  action :run
+end
