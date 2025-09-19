@@ -43,7 +43,7 @@ end
 bash 'create_director_db' do
   code <<-EOH
     mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' <<EOF
-    CREATE DATABASE IF NOT EXISTS director CHARACTER SET utf8 COLLATE utf8_general_ci;
+    CREATE DATABASE IF NOT EXISTS director CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
     CREATE USER IF NOT EXISTS 'director'@'localhost' IDENTIFIED BY '#{node['icinga2_ha']['db']['director_password']}';
     GRANT ALL PRIVILEGES ON director.* TO 'director'@'localhost';
     FLUSH PRIVILEGES;
