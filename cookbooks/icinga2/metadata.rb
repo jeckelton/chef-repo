@@ -3,7 +3,7 @@ maintainer 'Jeremy Eckelton'
 maintainer_email 'jeremy.eckelton@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures icinga2'
-version '0.3.2'
+version '0.3.3'
 chef_version '>= 16.0'
 
 supports 'redhat'

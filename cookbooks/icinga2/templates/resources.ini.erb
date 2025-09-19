@@ -1,0 +1,26 @@
+[icingaweb_db]
+type = "db"
+db = "mysql"
+host = "<%= @icingaweb_db['host'] %>"
+dbname = "<%= @icingaweb_db['dbname'] %>"
+username = "<%= @icingaweb_db['username'] %>"
+password = "<%= @icingaweb_db['password'] %>"
+use_ssl = "0"
+
+[icinga_ido]
+type = "db"
+db = "mysql"
+host = "<%= @icinga_ido['host'] %>"
+dbname = "<%= @icinga_ido['dbname'] %>"
+username = "<%= @icinga_ido['username'] %>"
+password = "<%= @icinga_ido['password'] %>"
+use_ssl = "0"
+
+[DirectorDB]
+type = "db"
+db = "mysql"
+host = "<%= @director['host'] %>"
+dbname = "<%= @director['dbname'] %>"
+username = "<%= @director['username'] %>"
+password = "<%= @director['password'] %>"
+use_ssl = "0"
