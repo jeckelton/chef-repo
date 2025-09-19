@@ -1,4 +1,4 @@
 object ApiUser "icingaweb2" {
-  password = <%= @api_pass %>
+  password = "<%= @api_pass %>"
   permissions = [ "status/query", "actions/*", "objects/query", "objects/modify", "events/assignments", "events/queue" ]
 }
