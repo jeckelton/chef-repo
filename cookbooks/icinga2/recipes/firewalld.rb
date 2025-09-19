@@ -1,3 +1,9 @@
+#
+# Cookbook:: icinga2
+# Recipe:: firewalld
+#
+# Copyright:: 2025, Jeremy Eckelton, All Rights Reserved.
+
 package 'firewalld' do
   action :install
 end

@@ -1,10 +1,5 @@
 <VirtualHost *:80>
-    ServerName 192.168.178.62
-
-    #SSLEngine on
-    #SSLCertificateFile /path/to/cert.pem
-    #SSLCertificateKeyFile /path/to/key.pem
-    # Possibly SSLCACertificateFile if needed
+    ServerName <%= @server_name %>
 
     Alias /icingaweb2 /usr/share/icingaweb2/public
 

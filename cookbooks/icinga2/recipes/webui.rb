@@ -1,9 +1,14 @@
+#
+# Cookbook:: icinga2
+# Recipe:: webui
+#
+# Copyright:: 2025, Jeremy Eckelton, All Rights Reserved.
+
 directory '/var/log/icingaweb2' do
   owner 'www-data'
   group 'www-data'
   mode '0755'
   recursive true
-  action :create
 end
 
 bash 'setup_web_permissions' do
@@ -26,7 +31,6 @@ file '/etc/icingaweb2/config.ini' do
   owner 'www-data'
   group 'www-data'
   mode '0640'
-  action :create
 end
 
 ruby_block 'detect_php_fpm_service' do
@@ -61,8 +65,7 @@ template '/etc/apache2/sites-available/icingaweb2.conf' do
   owner 'root'
   group 'root'
   mode '0644'
-  variables()
-  action :create
+  variables(server_name: node['icinga2_ha']['web']['server_name'])
   notifies :reload, 'service[apache2]', :delayed
 end
 
@@ -77,8 +80,7 @@ execute 'enable_businessprocess_module' do
   user 'www-data'
   environment({ 'HOME' => '/var/www' })
   not_if 'icingacli module list | grep businessprocess'
-  notifies :reload, 'service[apache2]', :immediately if node['platform_family'] == 'debian'
-  notifies :reload, 'service[httpd]', :immediately if node['platform_family'] == 'rhel'
+  notifies :reload, 'service[apache2]', :immediately
 end
 
 service 'apache2' do

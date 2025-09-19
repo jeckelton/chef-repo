@@ -1,11 +1,19 @@
+#
+# Cookbook:: icinga2
+# Recipe:: mariadb
+#
+# Copyright:: 2025, Jeremy Eckelton, All Rights Reserved.
+
+
+
+# Secure root
 execute 'secure mariadb install' do
-  command <<-EOH
-    mysqladmin -u root password '#{node['icinga2_ha']['db']['root_password']}'
-  EOH
+  command "mysqladmin -u root password '#{node['icinga2_ha']['db']['root_password']}'"
   only_if "mysql -u root -e 'status'"
-  ignore_failure true 
+  ignore_failure true
 end
 
+# Icinga IDO DB
 bash 'create_ido_db' do
   code <<-EOH
     mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' <<EOF
@@ -18,6 +26,7 @@ EOF
   not_if "mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' -e 'SHOW DATABASES;' | grep icinga"
 end
 
+# Icinga Web DB
 bash 'create_web_db' do
   code <<-EOH
     mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' <<EOF
@@ -30,13 +39,26 @@ EOF
   not_if "mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' -e 'SHOW DATABASES;' | grep icingaweb"
 end
 
-bash 'import_ido_schema' do
+# Director DB
+bash 'create_director_db' do
   code <<-EOH
-    mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' icinga < /usr/share/icinga2-ido-mysql/schema/mysql.sql
+    mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' <<EOF
+    CREATE DATABASE IF NOT EXISTS director;
+    CREATE USER IF NOT EXISTS 'director'@'localhost' IDENTIFIED BY '#{node['icinga2_ha']['db']['director_password']}';
+    GRANT ALL PRIVILEGES ON director.* TO 'director'@'localhost';
+    FLUSH PRIVILEGES;
+EOF
   EOH
+  not_if "mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' -e 'SHOW DATABASES;' | grep director"
+end
+
+# Import IDO schema
+bash 'import_ido_schema' do
+  code "mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' icinga < /usr/share/icinga2-ido-mysql/schema/mysql.sql"
   not_if "mysql -u root -p'#{node['icinga2_ha']['db']['root_password']}' icinga -e 'SHOW TABLES;' | grep icinga_objects"
 end
 
+# Configure ido-mysql
 file '/etc/icinga2/features-available/ido-mysql.conf' do
   content <<~EOF
     library "db_ido_mysql"

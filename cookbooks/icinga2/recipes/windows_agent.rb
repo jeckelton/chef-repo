@@ -2,12 +2,10 @@
 # Cookbook:: icinga2
 # Recipe:: windows_agent
 #
-# Install and configure Icinga2 agent on Windows
-#
+# Copyright:: 2025, Jeremy Eckelton, All Rights Reserved.
 
 if platform_family?('windows')
-
-  icinga_version   = '2.11.4'
+  icinga_version   = node['icinga2_ha']['icinga_version_windows']
   icinga_msi       = "Icinga2-v#{icinga_version}-x86_64.msi"
   icinga_url       = "https://packages.icinga.com/windows/#{icinga_msi}"
   icinga_installer = "C:\\Temp\\#{icinga_msi}"
@@ -33,30 +31,21 @@ if platform_family?('windows')
     supports status: true, restart: true
   end
 
-  # zones.conf (shared template)
   template 'C:\\ProgramData\\icinga2\\etc\\icinga2\\zones.conf' do
     source 'zones.conf.erb'
-    variables(
-      masters: node['icinga2_ha']['masters']
-    )
-    # Windows services don't support :reload, use :restart instead
+    variables(masters: node['icinga2_ha']['masters'])
     notifies :restart, 'service[icinga2]', :delayed
   end
 
-  # api.conf (shared template)
   template 'C:\\ProgramData\\icinga2\\etc\\icinga2\\features-enabled\\api.conf' do
     source 'api.conf.erb'
-    variables(
-      fqdn: node['fqdn']
-    )
+    variables(fqdn: node['fqdn'])
     notifies :restart, 'service[icinga2]', :immediately
   end
 
-  # Optional: certificate bootstrap
   execute 'icinga2_request_cert' do
     command "\"C:\\Program Files\\ICINGA2\\sbin\\icinga2.exe\" pki new-cert --cn #{node['fqdn']} --key C:\\ProgramData\\icinga2\\var\\lib\\icinga2\\certs\\#{node['fqdn']}.key --cert C:\\ProgramData\\icinga2\\var\\lib\\icinga2\\certs\\#{node['fqdn']}.crt"
     not_if { ::File.exist?("C:\\ProgramData\\icinga2\\var\\lib\\icinga2\\certs\\#{node['fqdn']}.crt") }
     notifies :restart, 'service[icinga2]', :delayed
   end
-
 end

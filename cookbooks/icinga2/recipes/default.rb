@@ -6,6 +6,7 @@
 
 include_recipe '::firewalld'
 
+# Debian repo setup
 if platform_family?('debian')
   execute 'add icinga repo' do
     command <<-EOH
@@ -17,19 +18,29 @@ if platform_family?('debian')
   end
 end
 
+# Packages
 case node['platform_family']
 when 'rhel'
-  package %w(icinga2 vim mariadb-server php php-cli php-fpm php-mysqlnd httpd icingaweb2 icingacli icinga2-ido-mysql icingaweb2-module-businessprocess)
+  package %w(
+    icinga2 vim mariadb-server php php-cli php-fpm php-mysqlnd httpd
+    icingaweb2 icingacli icinga2-ido-mysql icingaweb2-module-businessprocess
+    icingaweb2-module-director
+  )
 when 'debian'
-  package %w(icinga2 vim mariadb-server php php-cli php-fpm php-mysql apache2 icingaweb2 icingacli icinga2-ido-mysql icingaweb2-module-businessprocess)
+  package %w(
+    icinga2 vim mariadb-server php php-cli php-fpm php-mysql apache2
+    icingaweb2 icingacli icinga2-ido-mysql icingaweb2-module-businessprocess
+    icingaweb2-module-director
+  )
 end
 
+# Services
 service 'mariadb' do
   action [:enable, :start]
 end
 
 service 'icinga2' do
-  action :enable
+  action [:enable, :start]
   supports status: true, restart: true, reload: true
 end
 
@@ -37,14 +48,14 @@ service (platform_family?('rhel') ? 'httpd' : 'apache2') do
   action [:enable, :start]
 end
 
+# HA zones
 template '/etc/icinga2/zones.conf' do
   source 'zones.conf.erb'
-  variables(
-    masters: node['icinga2_ha']['masters']
-  )
+  variables(masters: node['icinga2_ha']['masters'])
   notifies :reload, 'service[icinga2]', :delayed
 end
 
+# PKI
 cookbook_file '/usr/local/bin/pki_setup.sh' do
   source 'pki_setup.sh'
   mode '0755'
@@ -56,27 +67,31 @@ execute 'setup_pki' do
   notifies :reload, 'service[icinga2]', :delayed
 end
 
+# API
 template '/etc/icinga2/features-enabled/api.conf' do
   source 'api.conf.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  variables(
-    fqdn: node['fqdn']
-  )
+  variables(fqdn: node['fqdn'])
   notifies :restart, 'service[icinga2]', :immediately
 end
 
-template '/etc/icinga2/conf.d/api-user.con' do
+template '/etc/icinga2/conf.d/api-user.conf' do
   source 'api-user.conf.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
-  variables(
-    api_pass: node['icinga2_ha']['web']['api_password']
-  )
+  variables(api_pass: node['icinga2_ha']['web']['api_password'])
   notifies :restart, 'service[icinga2]', :immediately
 end
 
+# Database setup
 include_recipe '::mariadb'
+
+# WebUI setup
 include_recipe '::webui'
+
+# Enable Director module
+execute 'enable_director_module' do
+  command 'icingacli module enable director'
+  user 'www-data'
+  environment({ 'HOME' => '/var/www' })
+  not_if 'icingacli module list | grep director'
+  notifies :reload, 'service[apache2]', :immediately if platform_family?('debian')
+  notifies :reload, 'service[httpd]', :immediately if platform_family?('rhel')
+end
