@@ -36,4 +36,10 @@ default['graylog2']['datanode']['opensearch_logs_location'] = '/var/log/graylog-
 
 default['graylog2']['mongodb']['host'] = '127.0.0.1'
 default['graylog2']['mongodb']['mongodb_max_connections'] = '1000'
+default['graylog2']['mongodb']['version'] = '7.0'
+default['graylog2']['mongodb']['repo_baseurl'] = {
+  'debian' => "https://repo.mongodb.org/apt/debian",
+  'rhel'   => "https://repo.mongodb.org/yum/redhat/$releasever"
+}
+default['graylog2']['mongodb']['gpg_url'] = "https://pgp.mongodb.com/server-#{node['mongodb']['version']}.asc"
 
