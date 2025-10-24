@@ -3,7 +3,7 @@ maintainer 'Jeremy Eckelton'
 maintainer_email 'jeremy.eckelton@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures graylog2'
-version '0.4.13'
+version '0.4.14'
 chef_version '>= 16.0'
 
 supports 'debian'

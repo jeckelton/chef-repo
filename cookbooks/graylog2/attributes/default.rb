@@ -41,5 +41,5 @@ default['graylog2']['mongodb']['repo_baseurl'] = {
   'debian' => "https://repo.mongodb.org/apt/debian",
   'rhel'   => "https://repo.mongodb.org/yum/redhat/$releasever"
 }
-default['graylog2']['mongodb']['gpg_url'] = "https://pgp.mongodb.com/server-#{node['mongodb']['version']}.asc"
+default['graylog2']['mongodb']['gpg_url'] = "https://pgp.mongodb.com/server-#{node['graylog2']['mongodb']['version']}.asc"
 
