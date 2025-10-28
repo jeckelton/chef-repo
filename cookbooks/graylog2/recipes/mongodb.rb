@@ -36,7 +36,7 @@ when 'rhel'
   end
 end
 
-%w[mongodb-org mongodb-org-server mongodb-org-mongos mongodb-org-tools].each do |pkg|
+%w[mongodb-org mongodb-org-server mongodb-org-mongos mongodb-org-tools mongodb-org-database-tools-extra mongodb-org-database].each do |pkg|
   package pkg do
     action :upgrade
   end
