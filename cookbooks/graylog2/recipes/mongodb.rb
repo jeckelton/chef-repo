@@ -36,8 +36,10 @@ when 'rhel'
   end
 end
 
-package 'mongodb-org' do
-  action :upgrade
+%w[mongodb-org mongodb-org-server mongodb-org-shell mongodb-org-mongos mongodb-org-tools].each do |pkg|
+  package pkg do
+    action :upgrade
+  end
 end
 
 service 'mongod' do
