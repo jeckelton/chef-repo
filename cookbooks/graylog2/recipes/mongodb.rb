@@ -37,8 +37,7 @@ when 'rhel'
 end
 
 package 'mongodb-org' do
-  version node['graylog2']['mongodb']['version']
-  action :install
+  action :upgrade
 end
 
 service 'mongod' do
