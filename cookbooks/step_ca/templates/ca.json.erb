@@ -1,0 +1,56 @@
+<%
+provisioners = []
+
+if node['step_ca']['entra']['enabled']
+  provisioners << {
+    type: 'OIDC',
+    name: node['step_ca']['entra']['name'],
+    clientID: node['step_ca']['entra']['client_id'],
+    clientSecret: @entra_client_secret,
+    configurationEndpoint: "https://login.microsoftonline.com/#{node['step_ca']['entra']['tenant_id']}/v2.0/.well-known/openid-configuration",
+    listenAddress: node['step_ca']['entra']['listen_address'],
+    admins: node['step_ca']['entra']['admins'],
+    domains: node['step_ca']['entra']['domains'],
+    claims: {
+      enableSSHCA: true,
+      disableRenewal: true,
+      minUserSSHCertDuration: node['step_ca']['ssh_user_min_duration'],
+      maxUserSSHCertDuration: node['step_ca']['ssh_user_max_duration'],
+      defaultUserSSHCertDuration: node['step_ca']['ssh_user_default_duration']
+    }
+  }
+end
+%>
+{
+  "root": "<%= node['step_ca']['root_cert'] %>",
+  "federatedRoots": null,
+  "crt": "<%= node['step_ca']['intermediate_cert'] %>",
+  "key": "<%= node['step_ca']['intermediate_key'] %>",
+  "address": "<%= node['step_ca']['address'] %>",
+  "dnsNames": <%= JSON.pretty_generate(node['step_ca']['dns_names']) %>,
+  "logger": {
+    "format": "text"
+  },
+  "db": {
+    "type": "badgerv2",
+    "dataSource": "<%= node['step_ca']['db_dir'] %>"
+  },
+  "authority": {
+    "claims": {
+      "minTLSCertDuration": "<%= node['step_ca']['x509_min_duration'] %>",
+      "maxTLSCertDuration": "<%= node['step_ca']['x509_max_duration'] %>",
+      "defaultTLSCertDuration": "<%= node['step_ca']['x509_default_duration'] %>",
+      "minUserSSHCertDuration": "<%= node['step_ca']['ssh_user_min_duration'] %>",
+      "maxUserSSHCertDuration": "<%= node['step_ca']['ssh_user_max_duration'] %>",
+      "defaultUserSSHCertDuration": "<%= node['step_ca']['ssh_user_default_duration'] %>",
+      "minHostSSHCertDuration": "<%= node['step_ca']['ssh_host_min_duration'] %>",
+      "maxHostSSHCertDuration": "<%= node['step_ca']['ssh_host_max_duration'] %>",
+      "defaultHostSSHCertDuration": "<%= node['step_ca']['ssh_host_default_duration'] %>"
+    },
+    "provisioners": <%= JSON.pretty_generate(provisioners) %>
+  }<% if node['step_ca']['ssh']['enabled'] %>,
+  "ssh": {
+    "hostKey": "<%= node['step_ca']['ssh']['host_key'] %>",
+    "userKey": "<%= node['step_ca']['ssh']['user_key'] %>"
+  }<% end %>
+}

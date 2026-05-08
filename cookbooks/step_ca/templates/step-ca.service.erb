@@ -1,0 +1,23 @@
+[Unit]
+Description=Smallstep Certificate Authority
+Documentation=https://smallstep.com/docs/step-ca
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=<%= node['step_ca']['user'] %>
+Group=<%= node['step_ca']['group'] %>
+EnvironmentFile=/etc/default/step-ca
+WorkingDirectory=<%= node['step_ca']['config_dir'] %>
+ExecStart=/usr/bin/step-ca <%= node['step_ca']['config_dir'] %>/ca.json --password-file <%= node['step_ca']['password_file'] %>
+Restart=on-failure
+RestartSec=5
+ReadWritePaths=<%= node['step_ca']['config_dir'] %> <%= node['step_ca']['db_dir'] %> <%= node['step_ca']['log_dir'] %>
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target
