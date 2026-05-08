@@ -1,9 +1,3 @@
-#
-# Cookbook:: step_ca
-# Recipe:: install
-#
-# Copyright:: 2026, Jeremy Eckelton, All Rights Reserved.
-
 package %w(curl openssh-clients)
 
 group node['step_ca']['group'] do
@@ -37,12 +31,12 @@ step_cli_rpm = "#{Chef::Config['file_cache_path']}/step-cli-#{node['step_ca']['v
 step_ca_rpm  = "#{Chef::Config['file_cache_path']}/step-ca-#{node['step_ca']['version']}-1.#{node['step_ca']['arch']}.rpm"
 
 remote_file step_cli_rpm do
-  source "https://dl.smallstep.com/cli/docs-cli-install/v#{node['step_ca']['version']}/step-cli-#{node['step_ca']['version']}-1.#{node['step_ca']['arch']}.rpm"
+  source "https://dl.smallstep.com/gh-release/cli/gh-release-header/v#{node['step_ca']['version']}/step-cli-#{node['step_ca']['version']}-1.#{node['step_ca']['arch']}.rpm"
   mode '0644'
 end
 
 remote_file step_ca_rpm do
-  source "https://dl.smallstep.com/certificates/docs-ca-install/v#{node['step_ca']['version']}/step-ca-#{node['step_ca']['version']}-1.#{node['step_ca']['arch']}.rpm"
+  source "https://dl.smallstep.com/gh-release/certificates/gh-release-header/v#{node['step_ca']['version']}/step-ca-#{node['step_ca']['version']}-1.#{node['step_ca']['arch']}.rpm"
   mode '0644'
 end
 
