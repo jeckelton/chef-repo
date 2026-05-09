@@ -12,7 +12,7 @@ default['step_ca']['templates_dir'] = '/etc/step-ca/templates'
 default['step_ca']['db_dir']        = '/var/lib/step-ca/db'
 default['step_ca']['log_dir']       = '/var/log/step-ca'
 
-default['step_ca']['address'] = ':8443'
+default['step_ca']['address'] = '0.0.0.0:8443'
 
 default['step_ca']['dns_names'] = [
   node['fqdn'],
