@@ -3,7 +3,7 @@ maintainer 'Jeremy Eckelton'
 maintainer_email 'jeremy.eckelton@gmail.com'
 license 'All Rights Reserved'
 description 'Installs/Configures step_ca'
-version '0.1.2'
+version '0.1.3'
 chef_version '>= 17.0'
 
 

@@ -19,6 +19,20 @@ if node['step_ca']['entra']['enabled']
       defaultUserSSHCertDuration: node['step_ca']['ssh_user_default_duration']
     }
   }
+elsif node['step_ca']['jwk']['enabled']
+  provisioners << {
+    type: 'JWK',
+    name: node['step_ca']['jwk']['name'],
+    key: JSON.parse(::File.read(node['step_ca']['jwk']['public_key'])),
+    encryptedKey: JSON.parse(::File.read(node['step_ca']['jwk']['encrypted_key'])),
+    claims: {
+      enableSSHCA: true,
+      disableRenewal: true,
+      minUserSSHCertDuration: node['step_ca']['ssh_user_min_duration'],
+      maxUserSSHCertDuration: node['step_ca']['ssh_user_max_duration'],
+      defaultUserSSHCertDuration: node['step_ca']['ssh_user_default_duration']
+    }
+  }
 end
 %>
 {

@@ -42,6 +42,11 @@ default['step_ca']['password_key']              = 'intermediate_password'
 
 default['step_ca']['create_test_ca'] = true
 
+default['step_ca']['jwk']['enabled']       = true
+default['step_ca']['jwk']['name']          = 'admin'
+default['step_ca']['jwk']['public_key']    = '/etc/step-ca/secrets/jwk_admin.pub.json'
+default['step_ca']['jwk']['encrypted_key'] = '/etc/step-ca/secrets/jwk_admin.key.json'
+
 default['step_ca']['ssh']['enabled'] = true
 
 default['step_ca']['ssh']['host_key'] = '/etc/step-ca/secrets/ssh_host_ca_key'

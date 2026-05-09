@@ -102,6 +102,23 @@ if node['step_ca']['create_test_ca']
   end
 end
 
+if node['step_ca']['jwk']['enabled'] && !node['step_ca']['entra']['enabled']
+  execute 'create jwk provisioner keypair' do
+    command [
+      '/usr/bin/step crypto jwk create',
+      node['step_ca']['jwk']['public_key'],
+      node['step_ca']['jwk']['encrypted_key'],
+      '--kty EC',
+      '--crv P-256',
+      "--password-file #{node['step_ca']['password_file']}"
+    ].join(' ')
+    user node['step_ca']['user']
+    group node['step_ca']['group']
+    creates node['step_ca']['jwk']['encrypted_key']
+    sensitive true
+  end
+end
+
 if node['step_ca']['ssh']['enabled']
   execute 'create ssh host ca keypair' do
     command "ssh-keygen -t ed25519 -f #{node['step_ca']['ssh']['host_key']} -N '' -C 'step-ca ssh host ca'"
