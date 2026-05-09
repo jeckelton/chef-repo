@@ -24,7 +24,7 @@ elsif node['step_ca']['jwk']['enabled']
     type: 'JWK',
     name: node['step_ca']['jwk']['name'],
     key: JSON.parse(::File.read(node['step_ca']['jwk']['public_key'])),
-    encryptedKey: JSON.parse(::File.read(node['step_ca']['jwk']['encrypted_key'])),
+    encryptedKey: ::File.read(node['step_ca']['jwk']['encrypted_key']).strip,
     claims: {
       enableSSHCA: true,
       disableRenewal: true,
