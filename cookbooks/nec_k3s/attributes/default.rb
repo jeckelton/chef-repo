@@ -1,5 +1,5 @@
 default['k3s']['version'] = 'v1.32.5+k3s1'
-default['k3s']['token'] = 'CHANGE_ME_TO_A_LONG_RANDOM_TOKEN'
+default['k3s']['token'] = 'pRRC3o9FBlgkztJq6EgbdutbOSXQjuCM4gIuk77YhUSvWZJhy9Yq9bi2J7eO6Kvm'
 
 default['k3s']['cluster_name'] = 'homelab-k3s'
 default['k3s']['cluster_domain'] = 'cluster.local'
