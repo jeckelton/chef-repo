@@ -7,23 +7,19 @@ cluster-init: true
 server: "https://<%= node['k3s']['primary_server_ip'] %>:<%= node['k3s']['api_port'] %>"
 <% end -%>
 
+node-ip: "<%= node['k3s']['servers'][node['hostname']] %>"
+advertise-address: "<%= node['k3s']['servers'][node['hostname']] %>"
 write-kubeconfig-mode: "<%= node['k3s']['write_kubeconfig_mode'] %>"
-cluster-domain: "<%= node['k3s']['cluster_domain'] %>"
 
+<% if @is_primary -%>
 tls-san:
-<% node['k3s']['tls_sans'].each do |san| -%>
-  - "<%= san %>"
-<% end -%>
-
-<% unless node['k3s']['disable_components'].empty? -%>
-disable:
-<% node['k3s']['disable_components'].each do |component| -%>
-  - "<%= component %>"
-<% end -%>
+  - "<%= node['k3s']['primary_server_ip'] %>"
+  - "<%= node['k3s']['primary_server'] %>"
 <% end -%>
 
 <% else -%>
 server: "https://<%= node['k3s']['primary_server_ip'] %>:<%= node['k3s']['api_port'] %>"
+node-ip: "<%= node['k3s']['agents'][node['hostname']] %>"
 <% end -%>
 
 node-name: "<%= node['hostname'] %>"
