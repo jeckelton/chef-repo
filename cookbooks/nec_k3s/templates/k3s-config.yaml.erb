@@ -1,0 +1,27 @@
+token: "<%= node['k3s']['token'] %>"
+
+<% if @role == 'server' -%>
+<% if @is_primary -%>
+cluster-init: true
+<% else -%>
+server: "https://<%= node['k3s']['primary_server_ip'] %>:<%= node['k3s']['api_port'] %>"
+<% end -%>
+
+write-kubeconfig-mode: "<%= node['k3s']['write_kubeconfig_mode'] %>"
+cluster-domain: "<%= node['k3s']['cluster_domain'] %>"
+
+tls-san:
+<% node['k3s']['tls_sans'].each do |san| -%>
+  - "<%= san %>"
+<% end -%>
+
+disable:
+<% node['k3s']['disable_components'].each do |component| -%>
+  - "<%= component %>"
+<% end -%>
+
+<% else -%>
+server: "https://<%= node['k3s']['primary_server_ip'] %>:<%= node['k3s']['api_port'] %>"
+<% end -%>
+
+node-name: "<%= node['hostname'] %>"
