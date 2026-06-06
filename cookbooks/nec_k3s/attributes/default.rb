@@ -5,26 +5,26 @@ default['k3s']['cluster_name'] = 'homelab-k3s'
 default['k3s']['cluster_domain'] = 'cluster.local'
 
 default['k3s']['primary_server'] = 'k3s-cp-01'
-default['k3s']['primary_server_ip'] = '192.168.178.31'
+default['k3s']['primary_server_ip'] = '192.168.178.231'
 
 default['k3s']['api_port'] = 6443
 
 default['k3s']['servers'] = {
-  'k3s-cp-01' => '192.168.178.31',
-  'k3s-cp-02' => '192.168.178.32',
-  'k3s-cp-03' => '192.168.178.33'
+  'k3s-cp-01' => '192.168.178.231',
+  'k3s-cp-02' => '192.168.178.232',
+  'k3s-cp-03' => '192.168.178.233'
 }
 
 default['k3s']['agents'] = {
-  'k3s-worker-01' => '192.168.178.41',
-  'k3s-worker-02' => '192.168.178.42',
-  'k3s-worker-03' => '192.168.178.43'
+  'k3s-worker-01' => '192.168.178.234',
+  'k3s-worker-02' => '192.168.178.235',
+  'k3s-worker-03' => '192.168.178.236'
 }
 
 default['k3s']['tls_sans'] = [
-  '192.168.178.31',
-  '192.168.178.32',
-  '192.168.178.33',
+  '192.168.178.231',
+  '192.168.178.232',
+  '192.168.178.233',
   'k3s-cp-01',
   'k3s-cp-02',
   'k3s-cp-03'
