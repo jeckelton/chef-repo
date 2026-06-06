@@ -1,5 +1,5 @@
-default['k3s']['version'] = 'v1.33.1+k3s1'
-default['k3s']['token'] = 'J80hMclrU6CFoe1RlRdO1J0UjpSAYxbm7KbJpZtyAjGpqXwsuwQb75JZpuaM5FU6'
+default['k3s']['version'] = 'v1.32.5+k3s1'
+default['k3s']['token'] = 'CHANGE_ME_TO_A_LONG_RANDOM_TOKEN'
 
 default['k3s']['cluster_name'] = 'homelab-k3s'
 default['k3s']['cluster_domain'] = 'cluster.local'
@@ -30,10 +30,7 @@ default['k3s']['tls_sans'] = [
   'k3s-cp-03'
 ]
 
-default['k3s']['disable_components'] = [
-  'traefik',
-  'servicelb'
-]
+default['k3s']['disable_components'] = []
 
 default['k3s']['node_labels'] = []
 default['k3s']['node_taints'] = []

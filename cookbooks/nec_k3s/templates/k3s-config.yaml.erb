@@ -15,9 +15,11 @@ tls-san:
   - "<%= san %>"
 <% end -%>
 
+<% unless node['k3s']['disable_components'].empty? -%>
 disable:
 <% node['k3s']['disable_components'].each do |component| -%>
   - "<%= component %>"
+<% end -%>
 <% end -%>
 
 <% else -%>
