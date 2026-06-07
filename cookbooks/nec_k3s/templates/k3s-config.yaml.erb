@@ -11,10 +11,9 @@ node-ip: "<%= node['k3s']['servers'][node['hostname']] %>"
 advertise-address: "<%= node['k3s']['servers'][node['hostname']] %>"
 write-kubeconfig-mode: "<%= node['k3s']['write_kubeconfig_mode'] %>"
 
-<% if @is_primary -%>
 tls-san:
-  - "<%= node['k3s']['primary_server_ip'] %>"
-  - "<%= node['k3s']['primary_server'] %>"
+<% node['k3s']['tls_sans'].uniq.each do |san| -%>
+  - "<%= san %>"
 <% end -%>
 
 <% else -%>

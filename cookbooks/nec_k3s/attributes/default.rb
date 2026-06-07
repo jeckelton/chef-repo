@@ -8,6 +8,9 @@ default['k3s']['primary_server'] = 'k3s-cp-01'
 default['k3s']['primary_server_ip'] = '192.168.178.151'
 
 default['k3s']['api_port'] = 6443
+default['k3s']['api_vip'] = '192.168.178.250'
+default['k3s']['api_hostname'] = 'k3s-api.fritz.box'
+default['k3s']['api_interface'] = 'eth0'
 
 default['k3s']['servers'] = {
   'k3s-cp-01' => '192.168.178.151',
@@ -25,9 +28,11 @@ default['k3s']['tls_sans'] = [
   '192.168.178.151',
   '192.168.178.152',
   '192.168.178.153',
+  '192.168.178.250',
   'k3s-cp-01',
   'k3s-cp-02',
-  'k3s-cp-03'
+  'k3s-cp-03',
+  'k3s-api.fritz.box'
 ]
 
 default['k3s']['disable_components'] = []
@@ -36,3 +41,8 @@ default['k3s']['node_labels'] = []
 default['k3s']['node_taints'] = []
 
 default['k3s']['write_kubeconfig_mode'] = '0644'
+
+default['k3s']['manifests_dir'] = '/var/lib/rancher/k3s/server/manifests'
+
+default['k3s']['kube_vip']['enabled'] = true
+default['k3s']['kube_vip']['version'] = 'v0.8.9'
