@@ -58,11 +58,11 @@ default['rke2']['manifest_dir'] = '/var/lib/rancher/rke2/server/manifests'
 
 # Cluster token.
 # Recommended: encrypted Chef data bag rke2/homelab with key "token".
-default['rke2']['token']['data_bag'] = 'rke2'
-default['rke2']['token']['item'] = 'homelab'
-default['rke2']['token']['key'] = 'token'
+#default['rke2']['token']['data_bag'] = 'rke2'
+#default['rke2']['token']['item'] = 'homelab'
+#default['rke2']['token']['key'] = 'token'
 default['rke2']['token'] = 'e1200ddfd5baca951110ad09f080136d7dc1697081090c0d2f02c728e6f1f4e8'
-default['rke2']['token']['encrypted'] = true
+#default['rke2']['token']['encrypted'] = true
 
 # Rocky/RHEL hardening choices for this homelab.
 # SELinux remains enforcing; the official RPM install provides RKE2 SELinux policy.
