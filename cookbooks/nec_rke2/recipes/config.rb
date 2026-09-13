@@ -3,7 +3,7 @@
 # Recipe:: config
 #
 
-require 'chef/encrypted_data_bag_item'
+#require 'chef/encrypted_data_bag_item'
 
 config_dir = node['rke2']['config_dir']
 node_ip = node['rke2']['node_ip'] || node['ipaddress']
@@ -13,20 +13,26 @@ unless node['rke2']['server_ips'].include?(node_ip)
   raise "Node IP #{node_ip} is not in node['rke2']['server_ips']: #{node['rke2']['server_ips'].join(', ')}"
 end
 
-token_cfg = node['rke2']['token']
+cluster_token = node['rke2']['token']
 
-token_item =
-  if token_cfg['encrypted']
-    Chef::EncryptedDataBagItem.load(token_cfg['data_bag'], token_cfg['item'])
-  else
-    data_bag_item(token_cfg['data_bag'], token_cfg['item'])
-  end
-
-cluster_token = token_item[token_cfg['key']]
-
-if cluster_token.nil? || cluster_token.empty? || cluster_token.include?('REPLACE')
-  raise "RKE2 cluster token is missing from #{token_cfg['data_bag']}/#{token_cfg['item']}"
+if cluster_token.nil? || cluster_token.empty?
+  raise 'RKE2 cluster token is not configured'
 end
+
+#token_cfg = node['rke2']['token']
+
+#token_item =
+#  if token_cfg['encrypted']
+#    Chef::EncryptedDataBagItem.load(token_cfg['data_bag'], token_cfg['item'])
+#  else
+#    data_bag_item(token_cfg['data_bag'], token_cfg['item'])
+#  end
+
+#cluster_token = token_item[token_cfg['key']]
+
+#if cluster_token.nil? || cluster_token.empty? || cluster_token.include?('REPLACE')
+#  raise "RKE2 cluster token is missing from #{token_cfg['data_bag']}/#{token_cfg['item']}"
+#end
 
 directory config_dir do
   owner 'root'
