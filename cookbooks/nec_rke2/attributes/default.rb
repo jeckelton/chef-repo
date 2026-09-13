@@ -23,7 +23,7 @@ default['rke2']['server_ips'] = %w(
 default['rke2']['node_ip'] = nil
 
 # Proxmox commonly uses ens18. Change if your Rocky VMs use another interface.
-default['rke2']['interface'] = 'ens18'
+default['rke2']['interface'] = 'enp6s18'
 
 # Kubernetes networking
 default['rke2']['cni'] = 'cilium'
@@ -61,6 +61,7 @@ default['rke2']['manifest_dir'] = '/var/lib/rancher/rke2/server/manifests'
 default['rke2']['token']['data_bag'] = 'rke2'
 default['rke2']['token']['item'] = 'homelab'
 default['rke2']['token']['key'] = 'token'
+default['rke2']['token'] = 'e1200ddfd5baca951110ad09f080136d7dc1697081090c0d2f02c728e6f1f4e8'
 default['rke2']['token']['encrypted'] = true
 
 # Rocky/RHEL hardening choices for this homelab.
