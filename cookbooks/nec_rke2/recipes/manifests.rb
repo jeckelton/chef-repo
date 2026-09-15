@@ -50,3 +50,11 @@ template "#{manifest_dir}/kube-vip.yaml" do
     services_enabled: node['rke2']['kube_vip']['services_enabled']
   )
 end
+
+template "#{node['rke2']['manifest_dir']}/rke2-traefik-config.yaml" do
+  source 'rke2-traefik-config.yaml.erb'
+  owner 'root'
+  group 'root'
+  mode '0644'
+  only_if { node['rke2']['node_ip'] == node['rke2']['bootstrap_node_ip'] }
+end
