@@ -76,3 +76,9 @@ default['rke2']['disable_firewalld'] = true
 # How long joining nodes will wait for the fixed registration address to exist.
 default['rke2']['join_wait_attempts'] = 120
 default['rke2']['join_wait_delay'] = 5
+
+# ArgoCD bootstrap
+default['rke2']['argocd']['enabled'] = true
+default['rke2']['argocd']['bootstrap_node_ip'] = '192.168.178.151'
+default['rke2']['argocd']['namespace'] = 'argocd'
+default['rke2']['argocd']['version'] = 'v3.5.0'

@@ -3,8 +3,9 @@
 # Recipe:: default
 #
 
-include_recipe 'nec_rke2::prerequisites'
-include_recipe 'nec_rke2::install'
-include_recipe 'nec_rke2::config'
-include_recipe 'nec_rke2::manifests'
-include_recipe 'nec_rke2::service'
+include_recipe '::prerequisites'
+include_recipe '::install'
+include_recipe '::config'
+include_recipe '::manifests'
+include_recipe '::service'
+include_recipe '::argocd'
