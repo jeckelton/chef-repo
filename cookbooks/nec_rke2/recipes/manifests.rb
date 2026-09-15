@@ -55,7 +55,10 @@ template "#{manifest_dir}/kube-vip-rbac.yaml" do
 end
 
 #
-# kube-vip control-plane VIP
+# kube-vip
+#
+# kube-vip is used only for the RKE2 control-plane/API VIP.
+# Kubernetes LoadBalancer services are handled separately by Cilium.
 #
 template "#{manifest_dir}/kube-vip.yaml" do
   source 'kube-vip.yaml.erb'
@@ -68,17 +71,4 @@ template "#{manifest_dir}/kube-vip.yaml" do
     interface: node['rke2']['interface'],
     services_enabled: node['rke2']['kube_vip']['services_enabled']
   )
-end
-
-#
-# RKE2 Traefik configuration
-#
-# Configure the RKE2-managed Traefik service as a LoadBalancer.
-# Cilium LB IPAM/L2 announcements will provide the external IP.
-#
-template "#{manifest_dir}/rke2-traefik-config.yaml" do
-  source 'rke2-traefik-config.yaml.erb'
-  owner 'root'
-  group 'root'
-  mode '0644'
 end
