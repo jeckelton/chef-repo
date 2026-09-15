@@ -34,7 +34,7 @@ default['rke2']['ingress_controller'] = 'traefik'
 
 # Keep kube-proxy for the first build. Cilium kube-proxy replacement can be
 # enabled later after the base cluster is stable.
-default['rke2']['disable_kube_proxy'] = false
+default['rke2']['disable_kube_proxy'] = true
 
 # Hubble
 default['rke2']['hubble']['enabled'] = true
