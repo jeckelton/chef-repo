@@ -5,7 +5,7 @@
 
 # Deliberately pinned. Upgrade this explicitly and roll the control-plane nodes
 # one at a time after testing.
-default['rke2']['version'] = 'v1.36.3+rke2r1'
+default['rke2']['version'] = 'v1.36.6+rke2r1'
 
 default['rke2']['cluster_name'] = 'homelab'
 default['rke2']['cluster_domain'] = 'cluster.local'

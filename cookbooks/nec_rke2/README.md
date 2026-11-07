@@ -204,7 +204,19 @@ method, and RKE2 is configured with:
 
 ## Upgrades
 
-RKE2 is pinned in attributes/default.rb.
+RKE2 is pinned in `attributes/default.rb` (currently `v1.36.6+rke2r1`).
+The install recipe installs the DNF versionlock plugin and locks `rke2-server`,
+`rke2-agent`, and `rke2-common` to that RKE2 version. RPM release rebuilds of the
+same version remain eligible. Other packages' version locks are preserved;
+`rke2-selinux` remains eligible for policy updates.
+
+The locks are updated before the installer runs, so changing the attribute
+allows Chef to install the explicitly selected version on each converged node.
+Nodes receive this protection only after running the updated cookbook.
+
+Inspect the locks on a node with:
+
+    sudo dnf versionlock list
 
 Do not point the cookbook at an unpinned `latest` channel.
 

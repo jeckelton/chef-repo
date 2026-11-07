@@ -5,6 +5,27 @@
 
 install_script = "#{Chef::Config[:file_cache_path]}/install-rke2.sh"
 desired_version = node['rke2']['version']
+rpm_version = desired_version.delete_prefix('v').tr('+', '~')
+
+package 'python3-dnf-plugin-versionlock'
+
+# Update the locks before invoking the installer so an old lock cannot prevent
+# an explicitly requested upgrade. Preserve locks belonging to other software.
+file '/etc/dnf/plugins/versionlock.list' do
+  owner 'root'
+  group 'root'
+  mode '0644'
+  content lazy {
+    path = '/etc/dnf/plugins/versionlock.list'
+    lines = ::File.exist?(path) ? ::File.readlines(path) : []
+    lines.reject! { |line| line.match?(/\A!?rke2-(?:server|agent|common)-/) }
+    lines << "\n" if lines.any? && !lines.last.end_with?("\n")
+    %w(server agent common).each do |component|
+      lines << "rke2-#{component}-0:#{rpm_version}-*.*\n"
+    end
+    lines.join
+  }
+end
 
 remote_file install_script do
   source 'https://get.rke2.io'
